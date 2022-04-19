@@ -8,7 +8,7 @@ namespace Fragments_back_end
 {
     static class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] argsg)
         {
         }
     }
