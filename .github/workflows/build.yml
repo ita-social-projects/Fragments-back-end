@@ -51,7 +51,7 @@ jobs:
         sonarProjectName: Fragments-back-end
         # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
         sonarOrganization: ita-social-projects
-        dotnetBuildArguments: ./Fragments-back-end/Fragments-back-end.sln -c Debug
+        dotnetBuildArguments: ./Fragments-back-end.sln -c Debug
 
   test:
     needs: [build]
