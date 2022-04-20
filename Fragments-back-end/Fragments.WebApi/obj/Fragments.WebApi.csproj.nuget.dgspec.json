@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ReposTrain\\Fragments-back-end\\Fragments-back-end\\Fragments-back-end.csproj": {}
+    "D:\\Repos\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\Fragments.WebApi.csproj": {}
   },
   "projects": {
-    "D:\\ReposTrain\\Fragments-back-end\\Fragments-back-end\\Fragments-back-end.csproj": {
+    "D:\\Repos\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\Fragments.WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ReposTrain\\Fragments-back-end\\Fragments-back-end\\Fragments-back-end.csproj",
-        "projectName": "Fragments-back-end",
-        "projectPath": "D:\\ReposTrain\\Fragments-back-end\\Fragments-back-end\\Fragments-back-end.csproj",
+        "projectUniqueName": "D:\\Repos\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\Fragments.WebApi.csproj",
+        "projectName": "Fragments.WebApi",
+        "projectPath": "D:\\Repos\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\Fragments.WebApi.csproj",
         "packagesPath": "C:\\Users\\Nazar\\.nuget\\packages\\",
-        "outputPath": "D:\\ReposTrain\\Fragments-back-end\\Fragments-back-end\\obj\\",
+        "outputPath": "D:\\Repos\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Nazar\\AppData\\Roaming\\NuGet\\NuGet.Config",
