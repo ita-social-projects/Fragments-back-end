@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fragments_back_end
+namespace Fragments.WebApi
 {
     static class Program
     {
