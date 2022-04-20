@@ -32,7 +32,7 @@ jobs:
         working-directory: Fragments-back-end
       - name: Build
         run: dotnet build --configuration Release
-        working-directory: Fragments.WebApi
+        working-directory: Fragments-back-end/Fragments.WebApi
       
   sonarscan:
     needs: [build]
