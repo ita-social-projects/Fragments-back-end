@@ -29,7 +29,7 @@ jobs:
          include-prerelease: True
       - name: Restore dependencies
         run: dotnet restore --interactive
-        working-directory: ./Fragments-back-end
+        working-directory: Fragments-back-end
       - name: Build
         run: dotnet build --configuration Release
         working-directory: Fragments-back-end/Fragments.WebApi
