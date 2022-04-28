@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Nazar\\.nuget\\packages\\": {}
+    "C:\\Users\\Vladik\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repos\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\Fragments.WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\Vladik\\Desktop\\soft\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\Fragments.WebApi.csproj",
       "projectName": "Fragments.WebApi",
-      "projectPath": "D:\\Repos\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\Fragments.WebApi.csproj",
-      "packagesPath": "C:\\Users\\Nazar\\.nuget\\packages\\",
-      "outputPath": "D:\\Repos\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\obj\\",
+      "projectPath": "C:\\Users\\Vladik\\Desktop\\soft\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\Fragments.WebApi.csproj",
+      "packagesPath": "C:\\Users\\Vladik\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Vladik\\Desktop\\soft\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Nazar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Vladik\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -60,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
