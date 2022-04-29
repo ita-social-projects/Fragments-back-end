@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fragments.Infrastructure", "Fragments.Infrastructure\Fragments.Infrastructure.csproj", "{FD7E5842-4FE1-42E9-892D-6499DCB59939}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD7E5842-4FE1-42E9-892D-6499DCB59939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD7E5842-4FE1-42E9-892D-6499DCB59939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD7E5842-4FE1-42E9-892D-6499DCB59939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD7E5842-4FE1-42E9-892D-6499DCB59939}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {25D63FE5-BAE8-40DD-837A-5E80BE778BD2}
+	EndGlobalSection
+EndGlobal
