@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "KzCRL/qrJdMLGqLLQj5Ewr0iuWf8JpNtdueGR1PBZ78VH5fZDREp/WNeiJUW8oJtAUmIASdnRHBjDNKIHuxJEA==",
+  "dgSpecHash": "HXLAZsJQm1sqEYIiP9ExiGAixFczT4Q5o9NX4QL8nw8H2usb/ceLASr4c194ZnXzg6iFICsH/rBPqh/QIgbERQ==",
   "success": true,
-  "projectFilePath": "D:\\Repos\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\Fragments.WebApi.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Vladik\\Desktop\\soft\\Fragments-back-end\\Fragments-back-end\\Fragments.WebApi\\Fragments.WebApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Vladik\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Vladik\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Vladik\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Vladik\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Vladik\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Vladik\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
   "logs": []
 }
