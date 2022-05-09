@@ -1,7 +1,6 @@
 ﻿using Fragments.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-
 namespace Fragments.Data.Context
 {
     public class FragmentsContext : DbContext

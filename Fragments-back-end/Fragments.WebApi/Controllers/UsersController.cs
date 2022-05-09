@@ -22,20 +22,22 @@ namespace Fragments.WebApi.Controllers
             _context = context;
         }
 
-
-        // POST: api/Users
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            if (UserExists(user.Email))
+            {
+                return BadRequest();
+            }
             _context.users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return Ok();
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(string email)
         {
-            return _context.users.Any(e => e.Id == id);
+            return _context.users.Any(e => e.Email == email);
         }
     }
 }
