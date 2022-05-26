@@ -5,7 +5,7 @@ namespace Fragments.Data.Context
 {
     public class FragmentsContext : DbContext
     {
-        public DbSet<User> users { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

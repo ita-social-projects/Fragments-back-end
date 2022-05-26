@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Fragments.Data.Context;
 using Fragments.Data.Entities;
+using AutoMapper;
+using Fragments.Domain.Models;
+using Fragments.Domain.Services;
 
 namespace Fragments.WebApi.Controllers
 {
@@ -15,29 +18,27 @@ namespace Fragments.WebApi.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly FragmentsContext _context;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UsersController(FragmentsContext context)
+        public UsersController(IUserService userService,IMapper mapper)
         {
-            _context = context;
+            _userService = userService;
+            _mapper = mapper;
+        }
+        [HttpGet]
+        public async Task<ActionResult> GetUsers()
+        {
+            var users = await _userService.GetUsers();
+            return Ok(users);
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<UserDTO>> PostUser(UserDTO user)
         {
-            if (UserExists(user.Email))
-            {
-                return BadRequest();
-            }
-            _context.users.Add(user);
-            await _context.SaveChangesAsync();
+            await _userService.Create(_mapper.Map<User>(user));
 
             return Ok();
-        }
-
-        private bool UserExists(string email)
-        {
-            return _context.users.Any(e => e.Email == email);
         }
     }
 }
