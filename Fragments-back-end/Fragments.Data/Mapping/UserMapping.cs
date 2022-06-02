@@ -2,12 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-
 namespace Fragments.Data.Mapping
 {
     static class UserMapping
     {
-        public static void MapUser(EntityTypeBuilder<User> entity)
+        public static void Map(EntityTypeBuilder<User> entity)
         {
             entity.HasMany(c => c.ChannelsOfRefferences)
                   .WithOne(e => e.User)
@@ -18,11 +17,6 @@ namespace Fragments.Data.Mapping
 
             entity.Property(x => x.RepresentativeAuthority)
                   .HasDefaultValue(false);
-        }
-
-        public static void MapChannels(EntityTypeBuilder<ChannelsOfRefference> entity)
-        {
-            entity.HasKey(k => k.ChannelId);
         }
     }
 }

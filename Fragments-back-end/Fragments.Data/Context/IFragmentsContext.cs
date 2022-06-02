@@ -1,7 +1,6 @@
 ﻿using Fragments.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Fragments.Data.Context
 {
     public interface IFragmentsContext

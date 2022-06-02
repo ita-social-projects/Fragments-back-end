@@ -1,6 +1,7 @@
 ﻿using Fragments.Data.Context;
 using Fragments.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
+
 namespace Fragments.Domain.Extensions
 {
     public static class DomainDI

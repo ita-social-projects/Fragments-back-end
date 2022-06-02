@@ -16,12 +16,14 @@ namespace Fragments.Data.Context
             string connectionString = builder.Build().GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(connectionString);
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>(UserMapping.MapUser);
+            modelBuilder.Entity<User>(UserMapping.Map);
 
-            modelBuilder.Entity<ChannelsOfRefference>(UserMapping.MapChannels);
+            modelBuilder.Entity<ChannelsOfRefference>(ChannelsMapping.Map);
         }
+
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             return await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

@@ -1,6 +1,5 @@
 ﻿using Fragments.Domain.Dto;
 
-
 namespace Fragments.Domain.Services
 {
     public interface IUserService
@@ -8,5 +7,4 @@ namespace Fragments.Domain.Services
         Task<bool> IsEmailAlreadyExistsAsync(string email);
         Task CreateAsync(UserDTO user);
     }
-
 }

@@ -1,5 +1,4 @@
-﻿
-namespace Fragments.Domain.Dto
+﻿namespace Fragments.Domain.Dto
 {
     public class ChannelsOfRefferenceDTO
     {

@@ -10,11 +10,13 @@ namespace Fragments.Domain.Services
     {
         private readonly IFragmentsContext _context;
         private readonly IMapper _mapper;
+
         public UserService(IFragmentsContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
+
         public async Task<bool> IsEmailAlreadyExistsAsync(string email)
         {
             return await _context.Users.AnyAsync(user => user.Email == email);

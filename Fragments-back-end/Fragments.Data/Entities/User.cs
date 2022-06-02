@@ -1,5 +1,4 @@
-﻿
-namespace Fragments.Data.Entities
+﻿namespace Fragments.Data.Entities
 {
     public class User
     {

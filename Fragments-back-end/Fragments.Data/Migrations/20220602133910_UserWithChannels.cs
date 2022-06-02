@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-#nullable disable
-
 namespace Fragments.Data.Migrations
 {
     public partial class UserWithChannels : Migration
