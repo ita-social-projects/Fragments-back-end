@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using AutoMapper;
-using Fragments.Domain.Models;
+using Fragments.Domain.Dto;
 using Fragments.Domain.Services;
 
 namespace Fragments.WebApi.Controllers
@@ -19,24 +19,16 @@ namespace Fragments.WebApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IMapper _mapper;
 
-        public UsersController(IUserService userService,IMapper mapper)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
-            _mapper = mapper;
-        }
-        [HttpGet]
-        public async Task<ActionResult> GetUsers()
-        {
-            var users = await _userService.GetUsers();
-            return Ok(users);
         }
 
         [HttpPost]
         public async Task<ActionResult<UserDTO>> PostUser(UserDTO user)
         {
-            await _userService.Create(_mapper.Map<User>(user));
+            await _userService.CreateAsync(user);
 
             return Ok();
         }

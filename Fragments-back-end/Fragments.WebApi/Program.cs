@@ -3,7 +3,6 @@ using FluentValidation.AspNetCore;
 using Fragments.Domain.Extensions;
 using Fragments.Domain.Profiles;
 using Fragments.Domain.Services;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 builder.Services.AddDomainDataServices();
+builder.Services.AddDI();
 builder.Services.AddFluentValidation(config => config
     .RegisterValidatorsFromAssemblyContaining<UserService>());
 

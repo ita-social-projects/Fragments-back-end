@@ -1,6 +1,7 @@
-﻿using Fragments.Data.Context;
+﻿using AutoMapper;
+using Fragments.Data.Context;
 using Fragments.Data.Entities;
-using Fragments.Domain.Models;
+using Fragments.Domain.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,23 +13,25 @@ namespace Fragments.Domain.Services
 {
     public class UserService:IUserService
     {
-        private readonly FragmentsContext _context;
-        public UserService(FragmentsContext context)
+        private readonly IFragmentsContext _context;
+        private readonly IMapper _mapper;
+        public UserService(IFragmentsContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-        public async Task<bool> IsEmailAlreadyExists(string email)
+        public async Task<bool> IsEmailAlreadyExistsAsync(string email)
         {
             return await _context.Users.AnyAsync(user => user.Email == email);
         }
-        public async Task<List<User>> GetUsers()
+
+        public async Task CreateAsync(UserDTO user)
         {
-            return await _context.Users.ToListAsync();
-        }
-        public async Task Create(User user)
-        {
-                await _context.Users.AddAsync(user);
-                await _context.SaveChangesAsync();
+            var userInfo = _mapper.Map<User>(user);
+
+            await _context.Users.AddAsync(userInfo);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

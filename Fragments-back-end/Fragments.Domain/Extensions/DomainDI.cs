@@ -7,8 +7,11 @@ namespace Fragments.Domain.Extensions
     {
         public static void AddDomainDataServices(this IServiceCollection services)
         {
-            services.AddDbContext<FragmentsContext>();
-            services.AddTransient<IUserService, UserService>();
+            services.AddDbContext<IFragmentsContext, FragmentsContext>();
+        }
+        public static void AddDI(this IServiceCollection services)
+        {
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }
