@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
-using Fragments.Data.Context;
 using Fragments.Domain.Dto;
 using Fragments.Domain.Services;
-using System.ComponentModel.DataAnnotations;
 
 namespace Fragments.Domain.ValidationAttributes
 {

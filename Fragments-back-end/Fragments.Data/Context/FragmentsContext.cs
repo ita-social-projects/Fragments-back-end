@@ -1,4 +1,5 @@
 ﻿using Fragments.Data.Entities;
+using Fragments.Data.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -17,23 +18,9 @@ namespace Fragments.Data.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>(UserMapping.MapUser);
 
-            modelBuilder.Entity<User>()
-                        .Property(x => x.RepresentativeAuthority)
-                        .HasDefaultValue(false);
-
-            modelBuilder.Entity<User>()
-                        .Property(x => x.RepresentativeHEI)
-                        .HasDefaultValue(false);
-
-            modelBuilder.Entity<ChannelsOfRefference>()
-                        .HasKey(k => k.ChannelId);
-
-            modelBuilder.Entity<User>()
-                        .HasMany(c => c.ChannelsOfRefferences)
-                        .WithOne(e => e.User)
-                        .HasForeignKey(f => f.UserId);
-
+            modelBuilder.Entity<ChannelsOfRefference>(UserMapping.MapChannels);
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
