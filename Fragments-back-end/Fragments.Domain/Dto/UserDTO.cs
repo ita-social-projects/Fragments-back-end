@@ -1,6 +1,6 @@
-﻿namespace Fragments.Data.Entities
+﻿namespace Fragments.Domain.Dto
 {
-    public class User
+    public class UserDTO
     {
         public int Id { get; set; }
         public string FullName { get; set; } = null!;
@@ -11,6 +11,6 @@
         public bool RepresentativeAuthority { get; set; }
         public string? Benefits { get; set; }
         public string? Interests { get; set; }
-        public ICollection<ChannelsOfRefference>? ChannelsOfRefferences { get; set; }
+        public ICollection<ChannelsOfRefferenceDTO>? ChannelsOfRefferences { get; set; }
     }
 }
