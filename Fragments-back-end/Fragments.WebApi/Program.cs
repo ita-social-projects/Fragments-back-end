@@ -3,6 +3,12 @@ using FluentValidation.AspNetCore;
 using Fragments.Domain.Extensions;
 using Fragments.Domain.Profiles;
 using Fragments.Domain.Services;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Swashbuckle.AspNetCore.Filters;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Fragments.Domain.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 builder.Services.AddDomainDataServices();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDI();
 builder.Services.AddFluentValidation(config => config
     .RegisterValidatorsFromAssemblyContaining<UserService>());
@@ -24,6 +31,18 @@ var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new UserProfile());
 });
+builder.Services.AddSwaggerGen(options => {
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
+
 
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
@@ -41,11 +60,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllers();
 
