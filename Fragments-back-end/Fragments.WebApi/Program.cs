@@ -4,11 +4,10 @@ using Fragments.Domain.Extensions;
 using Fragments.Domain.Profiles;
 using Fragments.Domain.Services;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Swashbuckle.AspNetCore.Filters;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Fragments.Domain.Helpers;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +33,7 @@ var mapperConfig = new MapperConfiguration(mc =>
 builder.Services.AddSwaggerGen(options => {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
-        Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
+        Description = "Standard Authorization header using the Bearer scheme (\"{token}\")",
         In = ParameterLocation.Header,
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
@@ -42,6 +41,10 @@ builder.Services.AddSwaggerGen(options => {
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
+        options => builder.Configuration.Bind("JwtSettings", options));
+
 
 
 IMapper mapper = mapperConfig.CreateMapper();
@@ -64,9 +67,9 @@ app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapControllers();
 

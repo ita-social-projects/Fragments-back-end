@@ -15,7 +15,7 @@ namespace Fragments.WebApi.Controllers
         {
             _userService = userService;
         }
-        [HttpGet, Authorize]
+        [HttpGet("get-me"), Authorize]
         public ActionResult<string> GetMe()
         {
             var userName = _userService.GetMe();
