@@ -39,7 +39,7 @@ namespace Fragments.Domain.Services
             await _context.SaveChangesAsync();
         }
         public async Task<AuthenticateResponseDTO> LoginAsync(AuthenticateRequestDTO model)
-        { 
+        {
             var user = await _context.Users.FirstOrDefaultAsync(user => user.Email == model.Email);
             if (user == null)
             {
