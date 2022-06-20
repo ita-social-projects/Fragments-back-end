@@ -30,5 +30,19 @@ namespace Fragments.Domain.Services
 
             await _context.SaveChangesAsync();
         }
+        public async Task<UserDTO> GetAsync(int id)
+        {
+
+            var user = await _context.Users.FindAsync(id);
+            var userInfo = _mapper.Map<UserDTO>(user);
+
+            if (userInfo == null)
+            {
+                throw new Exception("Not Found");
+            }
+
+            return userInfo;
+        }
+
     }
 }
