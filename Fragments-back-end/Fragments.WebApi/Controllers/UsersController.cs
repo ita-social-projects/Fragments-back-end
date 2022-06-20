@@ -22,5 +22,11 @@ namespace Fragments.WebApi.Controllers
 
             return Ok();
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDTO>> GetUser(int id)
+        {
+            return await _userService.GetAsync(id);
+        }
     }
 }
