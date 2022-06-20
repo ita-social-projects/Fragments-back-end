@@ -19,7 +19,6 @@ builder.Services.AddDI();
 builder.Services.AddFluentValidation(config => config
     .RegisterValidatorsFromAssemblyContaining<UserService>());
 
-
 var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new UserProfile());
@@ -28,7 +27,6 @@ var mapperConfig = new MapperConfiguration(mc =>
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 app.UseCors(options => options.WithOrigins("http://localhost:3000")
@@ -40,8 +38,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
 
 app.UseHttpsRedirection();
 

@@ -11,12 +11,6 @@ namespace Fragments.Data.Mapping
             entity.HasMany(c => c.ChannelsOfRefferences)
                   .WithOne(e => e.User)
                   .HasForeignKey(f => f.UserId);
-
-            entity.Property(x => x.RepresentativeHEI)
-                  .HasDefaultValue(false);
-
-            entity.Property(x => x.RepresentativeAuthority)
-                  .HasDefaultValue(false);
         }
     }
 }

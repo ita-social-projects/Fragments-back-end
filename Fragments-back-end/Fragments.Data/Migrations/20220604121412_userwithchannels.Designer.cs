@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fragments.Data.Migrations
 {
     [DbContext(typeof(FragmentsContext))]
-    [Migration("20220602133910_UserWithChannels")]
-    partial class UserWithChannels
+    [Migration("20220604121412_userwithchannels")]
+    partial class userwithchannels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
 
 namespace Fragments.Data.Migrations
 {
-    public partial class UserWithChannels : Migration
+    public partial class userwithchannels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
