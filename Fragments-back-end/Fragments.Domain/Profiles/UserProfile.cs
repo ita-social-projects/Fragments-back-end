@@ -15,6 +15,7 @@ namespace Fragments.Domain.Profiles
             CreateMap<ChannelsOfRefference, ChannelsOfRefferenceDTO>().ReverseMap();
 
             CreateMap<ChannelsOfRefference, ChannelsOfRefferenceDTO>();
+
         }
     }
 }

@@ -2,13 +2,12 @@
 using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
-using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Fragments.Domain.Services
 {
-    public class UserService: IUserService
+    public class UserService:IUserService
     {
         private readonly IFragmentsContext _context;
         private readonly IMapper _mapper;
@@ -32,7 +31,6 @@ namespace Fragments.Domain.Services
 
             await _context.SaveChangesAsync();
         }
-
         public async Task<UserDTO> GetAsync(int id)
         {
 
@@ -46,5 +44,6 @@ namespace Fragments.Domain.Services
 
             return userInfo;
         }
+
     }
 }

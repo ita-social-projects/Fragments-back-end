@@ -3,15 +3,19 @@ using System;
 using Fragments.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Fragments.Data.Migrations
 {
     [DbContext(typeof(FragmentsContext))]
-    partial class FragmentsContextModelSnapshot : ModelSnapshot
+    [Migration("20220602133910_UserWithChannels")]
+    partial class UserWithChannels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

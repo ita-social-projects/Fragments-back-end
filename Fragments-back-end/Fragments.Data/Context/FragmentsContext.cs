@@ -28,5 +28,17 @@ namespace Fragments.Data.Context
         {
             return await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>(UserMapping.Map);
+
+            modelBuilder.Entity<ChannelsOfRefference>(ChannelsMapping.Map);
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        }
     }
 }
