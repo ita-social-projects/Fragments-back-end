@@ -14,7 +14,19 @@ namespace Fragments.Data.Context
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
             string connectionString = builder.Build().GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(connectionString).UseLazyLoadingProxies();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>(UserMapping.Map);
+
+            modelBuilder.Entity<ChannelsOfRefference>(ChannelsMapping.Map);
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

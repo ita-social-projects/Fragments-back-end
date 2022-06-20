@@ -6,5 +6,7 @@ namespace Fragments.Domain.Services
     {
         Task<bool> IsEmailAlreadyExistsAsync(string email);
         Task CreateAsync(UserDTO user);
+        Task<UserDTO> GetAsync(int id);
+
     }
 }
