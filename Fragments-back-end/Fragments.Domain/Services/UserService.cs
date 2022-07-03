@@ -43,25 +43,37 @@ namespace Fragments.Domain.Services
             var user = await _context.Users.FirstOrDefaultAsync(user => user.Email == model.Email);
             if (user == null)
             {
-                return null;
+                throw new Exception("User not found");
             }
             var token = _configuration.GenerateJwtToken(user);
 
             return new AuthenticateResponseDTO(user, token);
         }
 
-        public string GetMe()
+        public async Task<UserDTO> GetMe()
         {
             var result = string.Empty;
+            var response = new UserDTO();
             if (_httpContextAccessor.HttpContext != null)
             {
                 result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+                var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == int.Parse(result));
+                response = _mapper.Map<UserDTO>(user);
             }
-            return result;
+            return response;
         }
-        public async Task<User?> GetById(int id)
+        public async Task<UserDTO> GetByIdAsync(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            var user = await _context.Users.FindAsync(id);
+            var userInfo = _mapper.Map<UserDTO>(user);
+
+            if (userInfo == null)
+            {
+                throw new Exception("Not Found");
+            }
+
+            return userInfo;
         }
     }
 }

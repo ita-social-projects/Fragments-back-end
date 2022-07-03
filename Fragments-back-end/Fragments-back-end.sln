@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fragments.Data", "Fragments
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fragments.Domain", "Fragments.Domain\Fragments.Domain.csproj", "{D8CFCED6-9389-4027-91DF-B681FFFD961A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fragments.Infrastructure", "Fragments.Infrastructure\Fragments.Infrastructure.csproj", "{401AFB9B-668D-4A66-9E7D-91BE3D78A43B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fragments.Infrastructure", "Fragments.Infrastructure\Fragments.Infrastructure.csproj", "{401AFB9B-668D-4A66-9E7D-91BE3D78A43B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

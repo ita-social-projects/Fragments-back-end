@@ -16,9 +16,9 @@ namespace Fragments.WebApi.Controllers
             _userService = userService;
         }
         [HttpGet("get-me"), Authorize]
-        public ActionResult<string> GetMe()
+        public async Task<ActionResult<string>> GetMe()
         {
-            var userName = _userService.GetMe();
+            var userName = await _userService.GetMe();
             return Ok(userName);
         }
         [HttpPost("register")]
@@ -32,15 +32,14 @@ namespace Fragments.WebApi.Controllers
         public async Task<ActionResult<string>> Login(AuthenticateRequestDTO user)
         {
             var response = await _userService.LoginAsync(user);
-
             if (response == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
-            SetRefreshToken(response);
             return Ok(response);
         }
-        private void SetRefreshToken(AuthenticateResponseDTO user)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDTO>> GetUser(int id)
         {
-            Response.Cookies.Append("userToken", user.Token);
+            return await _userService.GetByIdAsync(id);
         }
     }
 }
