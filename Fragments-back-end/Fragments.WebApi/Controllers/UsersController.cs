@@ -1,4 +1,4 @@
-﻿using Fragments.Domain.Dto;
+using Fragments.Domain.Dto;
 using Fragments.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,10 +36,11 @@ namespace Fragments.WebApi.Controllers
                 return BadRequest(new { message = "Username or password is incorrect" });
             return Ok(response);
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDTO>> GetUser(int id)
         {
-            return await _userService.GetByIdAsync(id);
+            return await _userService.GetAsync(id);
         }
     }
 }

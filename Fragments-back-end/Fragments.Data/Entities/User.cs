@@ -11,6 +11,6 @@
         public bool RepresentativeAuthority { get; set; }
         public string? Benefits { get; set; }
         public string? Interests { get; set; }
-        public ICollection<ChannelsOfRefference>? ChannelsOfRefferences { get; set; }
+        public virtual ICollection<ChannelsOfRefference>? ChannelsOfRefferences { get; set; }
     }
 }

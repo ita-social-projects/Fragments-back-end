@@ -62,7 +62,8 @@ namespace Fragments.Domain.Services
             }
             return response;
         }
-        public async Task<UserDTO> GetByIdAsync(int id)
+
+        public async Task<UserDTO> GetAsync(int id)
         {
 
             var user = await _context.Users.FindAsync(id);

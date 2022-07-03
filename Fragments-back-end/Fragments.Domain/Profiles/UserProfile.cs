@@ -13,8 +13,10 @@ namespace Fragments.Domain.Profiles
             CreateMap<User, UserDTO>();
 
             CreateMap<ChannelsOfRefference, ChannelsOfRefferenceDTO>().ReverseMap();
+            
+            CreateMap<ChannelsOfRefference, ChannelsOfRefferenceDTO>();
 
-            CreateMap<User, AuthenticateRequestDTO>().ReverseMap();
+            CreateMap<User, AuthenticateRequestDTO>().ReverseMap();     
         }
     }
 }
