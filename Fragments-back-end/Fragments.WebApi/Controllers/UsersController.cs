@@ -16,20 +16,20 @@ namespace Fragments.WebApi.Controllers
             _userService = userService;
         }
         [HttpGet("get-me"), Authorize]
-        public async Task<ActionResult<string>> GetMe()
+        public async Task<IActionResult> GetMe()
         {
             var userName = await _userService.GetMe();
             return Ok(userName);
         }
         [HttpPost("register")]
-        public async Task<ActionResult<UserDTO>> PostUser(UserDTO user)
+        public async Task<IActionResult> PostUser(UserDTO user)
         {
             await _userService.CreateAsync(user);
 
             return Ok();
         }
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(AuthenticateRequestDTO user)
+        public async Task<IActionResult> Login(AuthenticateRequestDTO user)
         {
             var response = await _userService.LoginAsync(user);
             if (response == null)
@@ -38,9 +38,9 @@ namespace Fragments.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDTO>> GetUser(int id)
+        public async Task<IActionResult> GetUser(int id)
         {
-            return await _userService.GetAsync(id);
+            return Ok(await _userService.GetAsync(id));
         }
     }
 }

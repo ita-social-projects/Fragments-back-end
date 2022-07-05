@@ -13,7 +13,7 @@ namespace Fragments.Domain.Dto
         public bool RepresentativeAuthority { get; set; }
         public string? Benefits { get; set; }
         public string? Interests { get; set; }
-        public ICollection<ChannelsOfRefference>? ChannelsOfRefferences { get; set; }
+        public virtual ICollection<ChannelsOfRefference>? ChannelsOfRefferences { get; set; }
         public string Token { get; set; } = null!;
 
         public AuthenticateResponseDTO(User user, string token)
