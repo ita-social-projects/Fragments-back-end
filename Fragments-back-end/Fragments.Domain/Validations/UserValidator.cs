@@ -2,7 +2,7 @@
 using Fragments.Domain.Dto;
 using Fragments.Domain.Services;
 
-namespace Fragments.Domain.ValidationAttributes
+namespace Fragments.Domain.Validations
 {
     public class UserValidator:AbstractValidator<UserDTO>
     {
@@ -11,8 +11,13 @@ namespace Fragments.Domain.ValidationAttributes
             RuleFor(x => x.Email)
                 .Must(em => !userService.IsEmailAlreadyExistsAsync(em).Result)
                 .WithMessage("Email is already exists");
+
             RuleFor(user => user.Email).EmailAddress();
+
             RuleFor(user => user.Birthday).LessThan(DateTime.Now).WithMessage("Invalid date");
+
+            RuleForEach(user => user.ChannelsOfRefferences).SetValidator(new ChannelsValidator());
+
         }
     }
 }
