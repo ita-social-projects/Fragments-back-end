@@ -1,6 +1,11 @@
 ﻿using Fragments.Data.Context;
 using Fragments.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Builder;
 
 namespace Fragments.Domain.Extensions
 {
@@ -13,6 +18,21 @@ namespace Fragments.Domain.Extensions
         public static void AddDI(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+        }
+        public static void AddJwtValidation(this IServiceCollection services, WebApplicationBuilder builder)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(builder.Configuration.GetSection("Secret").Value)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
         }
     }
 }
