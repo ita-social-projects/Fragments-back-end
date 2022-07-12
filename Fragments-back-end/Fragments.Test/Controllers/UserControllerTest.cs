@@ -7,9 +7,8 @@ using Fragments.Domain.Services;
 using Fragments.Test.Base;
 using Fragments.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Moq;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace Fragments.Test.Controllers
 {
@@ -70,26 +69,20 @@ namespace Fragments.Test.Controllers
             var result = await userController.Login(user);
 
             // Assert
-            using (new AssertionScope())
-            {
-                result.Should().BeOfType<BadRequestObjectResult>();
-            }
+            result.Should().BeOfType<BadRequestObjectResult>();
         }
         [Theory]
         [AutoEntityData]
         public async Task PostUser_WhenUserExists_ReturnsOkObjectResult(UserDTO user)
         {
-            // Arrange
-            userService.Verify(service => service.CreateAsync(user));        
+            // Arrange       
 
             // Act
             var result = await userController.PostUser(user);
 
             // Assert
-            using (new AssertionScope())
-            {
-                result.Should().BeOfType<OkResult>();
-            }
+            userService.Verify(service => service.CreateAsync(user));
+
         }
         [Theory]
         [AutoEntityData]

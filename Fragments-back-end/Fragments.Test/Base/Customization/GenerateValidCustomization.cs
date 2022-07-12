@@ -12,10 +12,22 @@ namespace Fragments.Test.Base.Customization
             fixture.Customize<UserDTO>(composer =>
             composer
             .With(x =>
-        x.Email,
-        fixture.Create<MailAddress>().ToString()).With(x =>
-        x.Birthday,
-        fixture.Create<DateTime>()));
+            x.Id,
+            fixture.CreateInRange<Int32>(1,1))
+            .With(x =>
+            x.Email,
+            fixture.Create<MailAddress>().ToString())
+            .With(x =>
+            x.Birthday,
+            fixture.Create<DateTime>())
+            .Without(x =>
+            x.ChannelsOfRefferences
+            ));
+
+            //fixture.Customize<ChannelsOfRefferenceDTO>(composer =>
+            //composer.With(x =>
+            //x.UserId,
+            //fixture.CreateInRange<Int32>(1, 1)));
         }
     }
 }
