@@ -1,6 +1,9 @@
 ﻿using Fragments.Data.Context;
 using Fragments.Domain.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using System.Text;
 
 namespace Fragments.Domain.Extensions
 {

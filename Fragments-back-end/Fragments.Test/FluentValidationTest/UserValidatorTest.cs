@@ -1,8 +1,9 @@
 ﻿using FluentValidation.TestHelper;
 using FluentValidation;
-using Fragments.Domain.ValidationAttributes;
 using Xunit;
 using Fragments.Domain.Dto;
+using Fragments.Domain.Validations;
+using Fragments.Domain.Services;
 
 namespace Fragments.Test.FluentValidationTest
 {
