@@ -1,13 +1,10 @@
 ﻿using Fragments.Data.Context;
 using Fragments.Domain.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 
 namespace Fragments.Domain.Extensions
 {

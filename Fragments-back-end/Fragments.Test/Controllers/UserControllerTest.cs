@@ -1,13 +1,11 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
-using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
 using Fragments.Domain.Services;
 using Fragments.Test.Base;
 using Fragments.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace Fragments.Test.Controllers
@@ -49,7 +47,7 @@ namespace Fragments.Test.Controllers
             var result = await userController.Login(user);
 
             // Assert
-            using(new AssertionScope())
+            using (new AssertionScope())
             {
                 result.Should().BeOfType<OkObjectResult>();
                 (result as OkObjectResult)?.Value.Should().BeOfType<AuthenticateResponseDTO>();
@@ -65,7 +63,7 @@ namespace Fragments.Test.Controllers
 #pragma warning disable CS8620 
             userService.Setup(service => service.LoginAsync(user)).ReturnsAsync(response);
 #pragma warning restore CS8620 
-            // Act
+                              // Act
             var result = await userController.Login(user);
 
             // Assert

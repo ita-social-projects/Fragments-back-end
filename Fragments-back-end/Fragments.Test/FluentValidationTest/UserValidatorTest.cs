@@ -1,9 +1,6 @@
 ﻿using FluentValidation.TestHelper;
-using FluentValidation;
-using Xunit;
 using Fragments.Domain.Dto;
 using Fragments.Domain.Validations;
-using Fragments.Domain.Services;
 
 namespace Fragments.Test.FluentValidationTest
 {
@@ -26,7 +23,7 @@ namespace Fragments.Test.FluentValidationTest
             // Assert
             result.ShouldHaveValidationErrorFor(user => user.Email);
 
-            
+
         }
         [Theory]
         [InlineData("user@example.com")]
