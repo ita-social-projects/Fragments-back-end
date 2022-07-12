@@ -26,6 +26,25 @@ namespace Fragments.Domain.Services
         {
             var userInfo = _mapper.Map<User>(user);
 
+            //
+
+            var userNotificationsInfo = new NotificationsDTO();
+
+            userNotificationsInfo.Theme = "Вітання у Fragmenty";
+            userNotificationsInfo.Body = "Вітаємо у Спільноті Fragmenty! " +
+            "Ви можете підтримати платформу, створити проект або долучитись до існуючих проектів";
+            userNotificationsInfo.Date = DateTime.Now;
+
+            var temp = _mapper.Map<Notifications>(userNotificationsInfo);
+
+            temp.UserId = userInfo.Id;
+            
+            temp.User = userInfo;
+
+            await _context.Notifications.AddAsync(temp);
+
+            //
+
             await _context.Users.AddAsync(userInfo);
 
             await _context.SaveChangesAsync();

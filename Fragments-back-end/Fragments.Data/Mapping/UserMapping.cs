@@ -17,6 +17,10 @@ namespace Fragments.Data.Mapping
 
             entity.Property(x => x.RepresentativeAuthority)
                   .HasDefaultValue(false);
+
+            entity.HasMany(x => x.Notifications)
+                .WithOne(e => e.User)
+                .HasForeignKey(f => f.UserId);
         }
     }
 }

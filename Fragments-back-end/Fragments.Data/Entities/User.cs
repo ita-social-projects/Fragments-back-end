@@ -12,5 +12,6 @@
         public string? Benefits { get; set; }
         public string? Interests { get; set; }
         public virtual ICollection<ChannelsOfRefference>? ChannelsOfRefferences { get; set; }
+        public virtual ICollection<Notifications>? Notifications { get; set; }
     }
 }

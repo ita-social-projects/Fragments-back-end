@@ -7,6 +7,10 @@ namespace Fragments.Data.Context
     {
         public DbSet<User> Users { get; set; }
         public DbSet<ChannelsOfRefference> ChannelsOfRefferences { get; set; }
+        //
+        public DbSet<Notifications> Notifications { get; set; }
+        //
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
     }
 }

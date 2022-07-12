@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fragments.Data.Migrations
 {
     [DbContext(typeof(FragmentsContext))]
-    [Migration("20220602133910_UserWithChannels")]
-    partial class UserWithChannels
+    [Migration("20220712210307_UserChannelsAndNotifications")]
+    partial class UserChannelsAndNotifications
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,37 @@ namespace Fragments.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ChannelsOfRefferences");
+                });
+
+            modelBuilder.Entity("Fragments.Data.Entities.Notifications", b =>
+                {
+                    b.Property<int>("NotificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NotificationId"), 1L, 1);
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 7, 13, 0, 3, 7, 861, DateTimeKind.Local).AddTicks(4438));
+
+                    b.Property<string>("Theme")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("NotificationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Fragments.Data.Entities.User", b =>
@@ -105,9 +136,22 @@ namespace Fragments.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Fragments.Data.Entities.Notifications", b =>
+                {
+                    b.HasOne("Fragments.Data.Entities.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Fragments.Data.Entities.User", b =>
                 {
                     b.Navigation("ChannelsOfRefferences");
+
+                    b.Navigation("Notifications");
                 });
 #pragma warning restore 612, 618
         }
