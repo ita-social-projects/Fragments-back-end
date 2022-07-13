@@ -3,6 +3,7 @@ using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
 using Fragments.Domain.Helpers;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,13 +42,10 @@ namespace Fragments.Domain.Services
         public async Task<AuthenticateResponseDTO> LoginAsync(AuthenticateRequestDTO model)
         {
             var user = await _context.Users.FirstOrDefaultAsync(user => user.Email == model.Email);
-            if (user == null)
-            {
-                throw new Exception("User not found");
-            }
-            var token = _configuration.GenerateJwtToken(user);
 
-            return new AuthenticateResponseDTO(user, token);
+            var token = _configuration.GenerateJwtToken(user!);
+
+            return new AuthenticateResponseDTO(user!, token);
         }
 
         public async Task<UserDTO> GetMe()
