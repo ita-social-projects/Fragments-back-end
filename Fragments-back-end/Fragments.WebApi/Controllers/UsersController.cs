@@ -40,7 +40,7 @@ namespace Fragments.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
-            return Ok(await _userService.GetAsync(id));
+            return Ok(await _userService.GetByIdAsync(id));
         }
     }
 }

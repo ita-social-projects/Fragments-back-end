@@ -25,7 +25,7 @@ namespace Fragments.Test.Controllers
         public async Task GetAsync_WhenUserExists_ReturnsOkObjectResult(UserDTO user)
         {
             // Arrange
-            userService.Setup(service => service.GetAsync(user.Id)).ReturnsAsync(user);
+            userService.Setup(service => service.GetByIdAsync(user.Id)).ReturnsAsync(user);
 
             // Act
             var result = await userController.GetUser(user.Id);
