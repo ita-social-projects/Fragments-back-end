@@ -59,11 +59,10 @@ namespace Fragments.Test.Controllers
         public async Task Login_WhenUserExists_BadRequestObjectResult(AuthenticateRequestDTO user)
         {
             // Arrange
-            AuthenticateResponseDTO? response = null;
-#pragma warning disable CS8620 
+            AuthenticateResponseDTO? response = null!;
             userService.Setup(service => service.LoginAsync(user)).ReturnsAsync(response);
-#pragma warning restore CS8620 
-                              // Act
+
+            // Act
             var result = await userController.Login(user);
 
             // Assert
