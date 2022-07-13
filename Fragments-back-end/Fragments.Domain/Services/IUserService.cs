@@ -1,4 +1,5 @@
-﻿using Fragments.Domain.Dto;
+﻿using Fragments.Data.Entities;
+using Fragments.Domain.Dto;
 
 namespace Fragments.Domain.Services
 {
@@ -6,6 +7,8 @@ namespace Fragments.Domain.Services
     {
         Task<bool> IsEmailAlreadyExistsAsync(string email);
         Task CreateAsync(UserDTO user);
-        Task<UserDTO> GetAsync(int id);
+        Task<AuthenticateResponseDTO> LoginAsync(AuthenticateRequestDTO model);
+        Task<UserDTO> GetMe();
+        Task<UserDTO> GetByIdAsync(int id);
     }
 }

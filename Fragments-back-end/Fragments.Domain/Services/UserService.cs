@@ -2,7 +2,12 @@
 using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
+using Fragments.Domain.Helpers;
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 
 namespace Fragments.Domain.Services
 {
@@ -10,11 +15,15 @@ namespace Fragments.Domain.Services
     {
         private readonly IFragmentsContext _context;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(IFragmentsContext context, IMapper mapper)
+        public UserService(IFragmentsContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor, IConfiguration configiguration)
         {
             _context = context;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+            _configuration = configiguration;
         }
 
         public async Task<bool> IsEmailAlreadyExistsAsync(string email)
@@ -30,9 +39,29 @@ namespace Fragments.Domain.Services
 
             await _context.SaveChangesAsync();
         }
-        public async Task<UserDTO> GetAsync(int id)
+        public async Task<AuthenticateResponseDTO> LoginAsync(AuthenticateRequestDTO model)
         {
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.Email == model.Email);
 
+            var token = _configuration.GenerateJwtToken(user!);
+
+            return new AuthenticateResponseDTO(user!, token);
+        }
+
+        public async Task<UserDTO> GetMe()
+        {
+            if (_httpContextAccessor.HttpContext != null)
+            {
+                var result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+                var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == int.Parse(result));
+                var response = _mapper.Map<UserDTO>(user);
+                return response;
+            }
+            return null!;
+        }
+
+        public async Task<UserDTO> GetByIdAsync(int id)
+        {
             var user = await _context.Users.FindAsync(id);
             var userInfo = _mapper.Map<UserDTO>(user);
 
@@ -43,6 +72,5 @@ namespace Fragments.Domain.Services
 
             return userInfo;
         }
-
     }
 }

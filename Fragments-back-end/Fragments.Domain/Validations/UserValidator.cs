@@ -2,17 +2,19 @@
 using Fragments.Domain.Dto;
 using Fragments.Domain.Services;
 
-namespace Fragments.Domain.ValidationAttributes
+namespace Fragments.Domain.Validations
 {
-    public class UserValidator:AbstractValidator<UserDTO>
+    public class UserValidator : AbstractValidator<UserDTO>
     {
-        public UserValidator(IUserService userService)
+        public UserValidator(IUserService service)
         {
-            RuleFor(x => x.Email)
-                .Must(em => !userService.IsEmailAlreadyExistsAsync(em).Result)
-                .WithMessage("Email is already exists");
+            RuleFor(user => user.Email).Must(email => !service.IsEmailAlreadyExistsAsync(email).Result);
+
             RuleFor(user => user.Email).EmailAddress();
+
             RuleFor(user => user.Birthday).LessThan(DateTime.Now).WithMessage("Invalid date");
+
+            RuleForEach(user => user.ChannelsOfRefferences).SetValidator(new ChannelsValidator());
         }
     }
 }
