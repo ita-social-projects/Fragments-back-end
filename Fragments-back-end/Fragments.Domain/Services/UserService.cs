@@ -50,20 +50,18 @@ namespace Fragments.Domain.Services
 
         public async Task<UserDTO> GetMe()
         {
-            var result = string.Empty;
-            var response = new UserDTO();
             if (_httpContextAccessor.HttpContext != null)
             {
-                result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+                var result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
                 var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == int.Parse(result));
-                response = _mapper.Map<UserDTO>(user);
+                var response = _mapper.Map<UserDTO>(user);
+                return response;
             }
-            return response;
+            return null!;
         }
 
-        public async Task<UserDTO> GetAsync(int id)
+        public async Task<UserDTO> GetByIdAsync(int id)
         {
-
             var user = await _context.Users.FindAsync(id);
             var userInfo = _mapper.Map<UserDTO>(user);
 
