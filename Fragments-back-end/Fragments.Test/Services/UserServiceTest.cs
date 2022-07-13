@@ -40,27 +40,6 @@ namespace Fragments.Test.Services
             result.Should().BeEquivalentTo(user1);
         }
 
-        [Theory]
-        [AutoEntityData]
-        public async Task LoginAsync_WhenUserExists_ReturnsValidObject(User user, string token)
-        {
-            //Arrange
-            await context.AddAsync(user);
-            await context.SaveChangesAsync();
-            var request = new AuthenticateRequestDTO()
-            {
-                Email = user.Email
-            }; ;
-            var response = new AuthenticateResponseDTO(user, token);
-            configuration.Setup(x => x.GenerateJwtToken(It.IsAny<User>())).Returns(token);
-            // Act
-            var result = await service.LoginAsync(request);
-            result.Token = token;
-
-            // Assert
-            result.Should().Be(response);
-        }
-
         [Fact]
         public async Task GetMe_WhenUserIsNotAuthorized_ReturnsNull()
         {
