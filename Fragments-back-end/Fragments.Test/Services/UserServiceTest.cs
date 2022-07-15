@@ -7,6 +7,7 @@ using Fragments.Domain.Services;
 using Fragments.Test.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.QualityTools.Testing.Fakes;
 using Moq;
 
 namespace Fragments.Test.Services
@@ -79,6 +80,22 @@ namespace Fragments.Test.Services
 
             // Assert
             await func.Should().ThrowAsync<Exception>().WithMessage("Not Found");
+        }
+
+        [Theory]
+        [AutoEntityData]
+        public void LoginAsync_WhenUserExists_ReturnsUserWithToken(string token)
+        {
+            using (ShimsContext.Create())
+            {
+                // Arrange
+                Domain.Helpers.Fakes.ShimJwtHelper.GenerateJwtTokenIConfigurationUser = (_, user) => token;
+
+                // Act
+
+                // Assert
+                
+            }            
         }
     }
 }
