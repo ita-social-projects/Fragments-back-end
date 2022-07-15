@@ -41,11 +41,11 @@ namespace Fragments.Domain.Services
         }
         public async Task<AuthenticateResponseDTO> LoginAsync(AuthenticateRequestDTO model)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(user => user.Email == model.Email);
+            var user = await _context.Users.FirstAsync(user => user.Email == model.Email);
 
-            var token = _configuration.GenerateJwtToken(user!);
+            var token = _configuration.GenerateJwtToken(user);
 
-            return new AuthenticateResponseDTO(user!, token);
+            return new AuthenticateResponseDTO(user, token);
         }
 
         public async Task<UserDTO> GetMe()
