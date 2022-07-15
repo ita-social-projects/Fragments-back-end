@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="FakesAssemblies\**" />
+    <EmbeddedResource Remove="FakesAssemblies\**" />
+    <None Remove="FakesAssemblies\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
     <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
@@ -17,6 +23,7 @@
     <PackageReference Include="FluentValidation" Version="11.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="Microsoft.QualityTools.Testing.Fakes" Version="16.11.230815" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -33,6 +40,10 @@
     <ProjectReference Include="..\Fragments.Domain\Fragments.Domain.csproj" />
     <ProjectReference Include="..\Fragments.Infrastructure\Fragments.Infrastructure.csproj" />
     <ProjectReference Include="..\Fragments.WebApi\Fragments.WebApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalDesignTimeBuildInput Remove="FakesAssemblies\**" />
   </ItemGroup>
 
 </Project>
