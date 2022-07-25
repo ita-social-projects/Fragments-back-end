@@ -1,5 +1,7 @@
 ﻿using Fragments.Data.Context;
 using Fragments.Domain.Services;
+using Fragments.Domain.Services.Implementation;
+using Fragments.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,7 @@ namespace Fragments.Domain.Extensions
         public static void AddDI(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<INotificationService, NotificationService>();
         }
         public static void AddJwtValidation(this IServiceCollection services, WebApplicationBuilder builder)
         {
