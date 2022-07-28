@@ -86,7 +86,7 @@ namespace Fragments.Test.Controllers
         public async Task GetMe_WhenUserExists_ReturnsOkObjectResult(UserDTO user)
         {
             // Arrange
-            userService.Setup(service => service.GetMe()).ReturnsAsync(user);
+            userService.Setup(service => service.GetMeAsync()).ReturnsAsync(user);
 
             // Act
             var result = await userController.GetMe();

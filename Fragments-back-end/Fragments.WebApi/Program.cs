@@ -1,8 +1,14 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using FluentValidation.AspNetCore;
 using Fragments.Domain.Extensions;
+using Fragments.Domain.Hubs;
 using Fragments.Domain.Profiles;
 using Fragments.Domain.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Connections;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
@@ -17,6 +23,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
+builder.Services.AddSignalR();
 builder.Services.AddDomainDataServices();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDI();
@@ -26,7 +33,7 @@ builder.Services.AddFluentValidation(config => config
 
 var mapperConfig = new MapperConfiguration(mc =>
 {
-    mc.AddProfile(new UserProfile());
+    mc.AddProfiles(new List<Profile> { new UserProfile(), new NotificationsProfile() });
 });
 
 builder.Services.AddSwaggerGen(options => {
@@ -51,15 +58,17 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseCors(options => options.WithOrigins("http://localhost:3000")
                               .AllowAnyMethod()
-                              .AllowAnyHeader());
+                              .AllowAnyHeader()
+                              .AllowAnyOrigin());
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
+
+app.MapHub<NotificationsHub>("/Notifications");
 
 app.UseAuthentication();
 

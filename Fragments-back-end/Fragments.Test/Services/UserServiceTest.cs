@@ -47,7 +47,7 @@ namespace Fragments.Test.Services
             httpContextAccessor.SetupGet(x => x.HttpContext).Returns((HttpContext?)null);
 
             // Act
-            var result = await service.GetMe();
+            var result = await service.GetMeAsync();
 
             // Assert
             result.Should().BeNull();

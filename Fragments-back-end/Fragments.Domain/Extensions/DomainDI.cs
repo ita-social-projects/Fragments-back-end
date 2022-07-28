@@ -1,5 +1,7 @@
 ﻿using Fragments.Data.Context;
 using Fragments.Domain.Services;
+using Fragments.Domain.Services.Implementation;
+using Fragments.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,7 @@ namespace Fragments.Domain.Extensions
         public static void AddDI(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<INotificationService, NotificationService>();
         }
         public static void AddJwtValidation(this IServiceCollection services, WebApplicationBuilder builder)
         {
@@ -30,6 +33,20 @@ namespace Fragments.Domain.Extensions
                         .GetBytes(builder.Configuration.GetSection("Secret").Value)),
                     ValidateIssuer = false,
                     ValidateAudience = false
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) &&
+                            (path.StartsWithSegments("/Notifications")))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
                 };
             });
         }

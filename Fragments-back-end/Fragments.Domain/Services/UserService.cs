@@ -48,14 +48,14 @@ namespace Fragments.Domain.Services
         }
         public async Task<AuthenticateResponseDTO> LoginAsync(AuthenticateRequestDTO model)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(user => user.Email == model.Email);
+            var user = await _context.Users.FirstAsync(user => user.Email == model.Email);
 
-            var token = _configuration.GenerateJwtToken(user!);
+            var token = _configuration.GenerateJwtToken(user);
 
-            return new AuthenticateResponseDTO(user!, token);
+            return new AuthenticateResponseDTO(user, token);
         }
 
-        public async Task<UserDTO> GetMe()
+        public async Task<UserDTO> GetMeAsync()
         {
             if (_httpContextAccessor.HttpContext != null)
             {
@@ -79,7 +79,6 @@ namespace Fragments.Domain.Services
 
             return userInfo;
         }
-        
         private void AddWelcomeNotification(User user) 
         {
             user.Notifications = new List<Notifications> { new Notifications  {
@@ -92,8 +91,6 @@ namespace Fragments.Domain.Services
 
                 }
             };
-          
-
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Fragments.Domain.Services
         Task<bool> IsEmailAlreadyExistsAsync(string email);
         Task CreateAsync(UserDTO user);
         Task<AuthenticateResponseDTO> LoginAsync(AuthenticateRequestDTO model);
-        Task<UserDTO> GetMe();
+        Task<UserDTO> GetMeAsync();
         Task<UserDTO> GetByIdAsync(int id);
     }
 }
