@@ -14,6 +14,8 @@ namespace Fragments.Data.Context
         public DbSet<ChannelsOfRefference> ChannelsOfRefferences { get; set; } = null!;
         //
         public DbSet<Notifications> Notifications { get; set; } = null!;
+        public DbSet<Role> Roles { get; set; } = null!;
+
         //
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,6 +35,7 @@ namespace Fragments.Data.Context
             //
             modelBuilder.Entity<Notifications>(NotificationsMapping.Map);
             //
+            modelBuilder.Entity<Role>(RoleMapping.Map);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

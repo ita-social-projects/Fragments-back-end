@@ -12,6 +12,10 @@ namespace Fragments.Data.Mapping
                   .WithOne(e => e.User)
                   .HasForeignKey(f => f.UserId);
 
+            entity.HasMany(c => c.Roles)
+                  .WithOne(e => e.User)
+                  .HasForeignKey(f => f.UserId);
+
             entity.Property(x => x.RepresentativeHEI)
                   .HasDefaultValue(false);
 

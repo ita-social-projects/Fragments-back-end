@@ -13,5 +13,6 @@
         public string? Interests { get; set; }
         public virtual ICollection<ChannelsOfRefference>? ChannelsOfRefferences { get; set; }
         public virtual ICollection<Notifications>? Notifications { get; set; }
+        public virtual ICollection<Role> Roles { get; set; } = null!;
     }
 }
