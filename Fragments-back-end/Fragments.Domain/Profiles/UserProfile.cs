@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
+using System.Collections.Generic;
 
 namespace Fragments.Domain.Profiles
 {
@@ -17,10 +18,6 @@ namespace Fragments.Domain.Profiles
             CreateMap<ChannelsOfRefference, ChannelsOfRefferenceDTO>();
 
             CreateMap<User, AuthenticateRequestDTO>().ReverseMap();
-
-            CreateMap<Notifications, NotificationsDTO>().ReverseMap();
-
-            CreateMap<Notifications, NotificationsDTO>();
         }
     }
 }
