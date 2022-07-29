@@ -11,7 +11,7 @@ namespace Fragments.Data.Mapping
             entity.HasKey(k => k.NotificationId);
 
             entity.Property(x => x.Date)
-                .HasDefaultValue(DateTime.Now);
+                .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }
