@@ -6,8 +6,6 @@
 
         public string RoleName { get; set; } = null!;
 
-        public int UserId { get; set; }
-
-        public virtual User User { get; set; } = null!;
+        public virtual ICollection<UsersRole> UsersRole { get; set; } = null!;
     }
 }
