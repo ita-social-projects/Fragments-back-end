@@ -1,4 +1,4 @@
-name: CI
+name: CI_Pipeline
 on:
   push:
     branches: [ DevOps-9-implement-ci-for-fragments-back-end ]
