@@ -44,35 +44,21 @@ jobs:
         working-directory: Fragments-back-end/Fragments.Test
 
 
-  sonarscan:
+  sonarcloud:
     needs: [build_and_test]
     runs-on: ubuntu-latest
-
     steps:
-    - name: Clone Back-End repo
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-
-    # .net 5 version
-    # - name: SonarScanner for .NET 5 with pull request decoration support
-    #   uses: highbyte/sonarscan-dotnet@2.0
-    #   #uncoment the line above and comment the line below when NuGet will fix their issues
-    #   #uses: SplinterRAT/sonarscan-dotnet@v2.0.0.1
-    #   with:
-    #     sonarProjectKey: ita-social-projects_Fragments-back-end
-    #     sonarProjectName:  Fragments-back-end
-    #     sonarOrganization: ita-social-projects
-    #     sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="/github/workspace/Fragments-back-end/Fragments.Test/coverage.opencover.xml" /d:sonar.coverage.exclusions=**/Fragments.Data/**,**/Fragments.Domain/Dto/**,**/Fragments.Domain/Extensions/**,**/Program.cs /d:sonar.exclusions=**/Fragments.Data/Migrations/**
-    #     dotnetBuildArguments: ./Fragments-back-end/Fragments-back-end.sln -c Debug
-    #     dotnetTestArguments: ./Fragments-back-end/Fragments.Test/Fragments.Test.csproj --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      - name: Clone Back-End repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: SonarScanner for .NET 6 with pull request decoration support
-      uses: highbyte/sonarscan-dotnet@2.1.3
-      with:
-        sonarProjectKey: ita-social-projects_Fragments-back-end
-        sonarProjectName:  Fragments-back-end
-        sonarOrganization: ita-social-projects
-        sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="/github/workspace/Fragments-back-end/Fragments.Test/coverage.opencover.xml" /d:sonar.coverage.exclusions=**/Fragments.Data/**,**/Fragments.Domain/Dto/**,**/Fragments.Domain/Extensions/**,**/Program.cs /d:sonar.exclusions=**/Fragments.Data/Migrations/**
-        dotnetBuildArguments: ./Fragments-back-end/Fragments-back-end.sln -c Debug
-        dotnetTestArguments: ./Fragments-back-end/Fragments.Test/Fragments.Test.csproj --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+        uses: highbyte/sonarscan-dotnet@2.1.3
+        with:
+          sonarProjectKey: ita-social-projects_Fragments-back-end
+          sonarProjectName:  Fragments-back-end
+          sonarOrganization: ita-social-projects
+          sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="/github/workspace/Fragments-back-end/Fragments.Test/coverage.opencover.xml" /d:sonar.coverage.exclusions=**/Fragments.Data/**,**/Fragments.Domain/Dto/**,**/Fragments.Domain/Extensions/**,**/Program.cs /d:sonar.exclusions=**/Fragments.Data/Migrations/**
+          dotnetBuildArguments: ./Fragments-back-end/Fragments-back-end.sln -c Debug
+          dotnetTestArguments: ./Fragments-back-end/Fragments.Test/Fragments.Test.csproj --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
