@@ -1,5 +1,4 @@
-﻿using Fragments.Data.Entities;
-using Fragments.Domain.Dto;
+﻿using Fragments.Domain.Dto;
 
 namespace Fragments.Domain.Services
 {
