@@ -1,4 +1,4 @@
-name: CI_Pipeline
+name: CI_release
 on:
   push:
     branches:
