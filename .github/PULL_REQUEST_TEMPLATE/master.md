@@ -24,8 +24,9 @@ ToDo
 
 ToDo
 ## CHECK LIST
-- [ ]  СI passed
-- [ ]  Сode coverage >=95%
+- ![Build and Test](https://github.com/ita-social-projects/Fragments-back-end/actions/workflows/CI_release.yaml/badge.svg)
+
+- [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ita-social-projects_Fragments-back-end&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ita-social-projects_Fragments-back-end) | Sonarcloud analysis
 - [ ]  PR is reviewed manually again (to make sure you have 100% ready code)
 - [ ]  All reviewers agreed to merge the PR
 - [ ]  I've checked new feature as logged in and logged out user if needed
