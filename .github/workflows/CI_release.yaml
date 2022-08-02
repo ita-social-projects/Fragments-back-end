@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - DevOps-9-implement-ci-for-fragments-back-end
   pull_request:
     branches:
     - master
