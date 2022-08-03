@@ -63,7 +63,7 @@ namespace Fragments.Data.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 29, 7, 3, 6, 860, DateTimeKind.Utc).AddTicks(5749));
+                        .HasDefaultValue(new DateTime(2022, 7, 31, 17, 9, 1, 411, DateTimeKind.Utc).AddTicks(8884));
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");

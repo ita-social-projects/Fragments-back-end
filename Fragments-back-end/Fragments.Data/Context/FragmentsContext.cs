@@ -1,6 +1,7 @@
 ﻿using Fragments.Data.Entities;
 using Fragments.Data.Mapping;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
 
 namespace Fragments.Data.Context
@@ -44,6 +45,10 @@ namespace Fragments.Data.Context
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             return await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        }
+        public override EntityEntry Entry(object entity)
+        {
+            return base.Entry(entity);
         }
     }
 }

@@ -30,7 +30,6 @@ builder.Services.AddDI();
 builder.Services.AddFluentValidation(config => config
     .RegisterValidatorsFromAssemblyContaining<UserService>());
 
-
 var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfiles(new List<Profile> { new UserProfile(), new NotificationsProfile() });

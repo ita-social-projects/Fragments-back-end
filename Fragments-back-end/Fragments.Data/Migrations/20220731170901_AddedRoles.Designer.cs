@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fragments.Data.Migrations
 {
     [DbContext(typeof(FragmentsContext))]
-    [Migration("20220729070306_addScriptForAdminSet")]
-    partial class addScriptForAdminSet
+    [Migration("20220731170901_AddedRoles")]
+    partial class AddedRoles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,7 +65,7 @@ namespace Fragments.Data.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 29, 7, 3, 6, 860, DateTimeKind.Utc).AddTicks(5749));
+                        .HasDefaultValue(new DateTime(2022, 7, 31, 17, 9, 1, 411, DateTimeKind.Utc).AddTicks(8884));
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");

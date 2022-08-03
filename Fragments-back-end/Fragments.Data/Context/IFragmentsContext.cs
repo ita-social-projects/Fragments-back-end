@@ -1,5 +1,6 @@
 ﻿using Fragments.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Fragments.Data.Context
 {
@@ -13,5 +14,6 @@ namespace Fragments.Data.Context
         //
         public DbSet<Notifications> Notifications { get; set; }
         //
+        public EntityEntry Entry(object entity);
     }
 }

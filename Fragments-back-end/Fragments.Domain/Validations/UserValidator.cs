@@ -8,7 +8,7 @@ namespace Fragments.Domain.Validations
     {
         public UserValidator(IUserService service)
         {
-            RuleFor(user => user.Email).Must(email => !service.IsEmailAlreadyExistsAsync(email).Result);
+           // RuleFor(user => user.Email).Must(email => !service.IsEmailAlreadyExistsAsync(email).Result);
 
             RuleFor(user => user.Email).EmailAddress();
 

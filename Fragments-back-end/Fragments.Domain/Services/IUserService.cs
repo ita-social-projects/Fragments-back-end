@@ -10,5 +10,6 @@ namespace Fragments.Domain.Services
         Task<AuthenticateResponseDTO> LoginAsync(AuthenticateRequestDTO model);
         Task<UserDTO> GetMeAsync();
         Task<UserDTO> GetByIdAsync(int id);
+        Task UpdateAsync(UserDTO user);
     }
 }
