@@ -10,7 +10,6 @@ env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
