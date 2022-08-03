@@ -82,20 +82,5 @@ namespace Fragments.Test.Services
             await func.Should().ThrowAsync<Exception>().WithMessage("Not Found");
         }
 
-        [Theory]
-        [AutoEntityData]
-        public void LoginAsync_WhenUserExists_ReturnsUserWithToken(string token)
-        {
-            using (ShimsContext.Create())
-            {
-                // Arrange
-                Domain.Helpers.Fakes.ShimJwtHelper.GenerateJwtTokenIConfigurationUser = (_, user) => token;
-
-                // Act
-
-                // Assert
-                
-            }            
-        }
     }
 }
