@@ -1,10 +1,10 @@
 ﻿using Fragments.Domain.Dto;
-using Fragments.Domain.Services;
 using Fragments.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+
 namespace Fragments.WebApi.Controllers
 {
     
@@ -28,11 +28,9 @@ namespace Fragments.WebApi.Controllers
         }
 
         [HttpGet("getNotifications")]
-        public async Task<IActionResult> GetNotificationsWithCorrectUser(bool sortingBy, int pageIndex, bool typeOfRead)
+        public async Task<IActionResult> GetNotificationsWithCorrectUser(bool sortingBy, bool typeOfRead)
         {
-            //var _u = _userService.GetMe();
-            
-            return Ok(await _notificationService.GetNotificationsAsync(sortingBy, pageIndex, typeOfRead));
+            return Ok(await _notificationService.GetNotificationsAsync(sortingBy, typeOfRead));
         }
     }
 }
