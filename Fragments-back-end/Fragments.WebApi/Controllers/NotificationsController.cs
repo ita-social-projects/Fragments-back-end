@@ -31,13 +31,13 @@ namespace Fragments.WebApi.Controllers
         [HttpPost("readMessage")]
         public async Task <IActionResult> ReadingTheMessage (NotificationsDTO messageDTO)
         {
-            await _notificationService.ReadingTheMessage(messageDTO);
+            await _notificationsService.ReadingTheMessage(messageDTO);
             return Ok();
         }
         [HttpGet("getNotifications")]
         public async Task<IActionResult> GetNotificationsWithCorrectUser(bool sortingBy, bool typeOfRead)
         {
-            return Ok(await _notificationService.GetNotificationsAsync(sortingBy, typeOfRead));
+            return Ok(await _notificationsService.GetNotificationsAsync(sortingBy, typeOfRead));
         }
     }
 }
