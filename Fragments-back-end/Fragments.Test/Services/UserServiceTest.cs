@@ -80,6 +80,5 @@ namespace Fragments.Test.Services
             // Assert
             await func.Should().ThrowAsync<Exception>().WithMessage("Not Found");
         }
-
     }
 }
