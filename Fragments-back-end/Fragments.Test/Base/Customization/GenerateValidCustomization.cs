@@ -32,7 +32,9 @@ namespace Fragments.Test.Base.Customization
             fixture.Create<DateTime>())
             .Without(x =>
             x.ChannelsOfRefferences
-            ));
+            )
+            .Without(x => 
+            x.Notifications));
         }
     }
 }
