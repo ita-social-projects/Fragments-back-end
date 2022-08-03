@@ -32,8 +32,10 @@ namespace Fragments.Domain.Services.Implementation
         public async Task ReadingTheMessage(NotificationsDTO notificationsDTO)
         {
             var notification = await _context.Notifications.FindAsync(notificationsDTO.NotificationId);
-            var notificationInfo = _mapper.Map<Notifications>(notification);
-            notificationInfo.IsRead = true;
+            if (notification is not null)
+            {
+                notification.IsRead = true;
+            }
             await _context.SaveChangesAsync();
         }
 

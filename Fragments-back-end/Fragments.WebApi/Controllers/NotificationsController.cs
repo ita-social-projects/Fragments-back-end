@@ -4,8 +4,6 @@ using Fragments.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-
 using System.Linq.Expressions;
 namespace Fragments.WebApi.Controllers
 {

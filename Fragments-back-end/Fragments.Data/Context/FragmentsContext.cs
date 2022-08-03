@@ -13,9 +13,8 @@ namespace Fragments.Data.Context
 
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<ChannelsOfRefference> ChannelsOfRefferences { get; set; } = null!;
-        //
         public DbSet<Notifications> Notifications { get; set; } = null!;
-        //
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
