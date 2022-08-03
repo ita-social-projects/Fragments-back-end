@@ -45,7 +45,7 @@ jobs:
 
   sonarcloud_analysis:
     needs: [build_and_test]
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Clone Back-End repo
         uses: actions/checkout@v3
