@@ -64,7 +64,7 @@ namespace Fragments.Domain.Services.Implementation
         }
         public async Task<IReadOnlyList<NotificationsDTO>> GetNotificationsAsync(bool sortingByDateDescending, bool typeOfRead)
         {
-            var user = await _userService.GetMe(); 
+            var user = await _userService.GetMeAsync(); 
             var notifications = _context.Notifications
                 .Where(x => x.UserId == user.Id)
                 .Where(y => typeOfRead ? (y.IsRead || !y.IsRead ) : !y.IsRead)
