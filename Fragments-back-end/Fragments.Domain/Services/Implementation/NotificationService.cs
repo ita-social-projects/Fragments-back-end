@@ -51,18 +51,37 @@ namespace Fragments.Domain.Services.Implementation
             }
             return true;
         }
-        public async Task<IReadOnlyList<NotificationsDTO>> GetNotificationsAsync()
-        {
-            var user = await _userService.GetMeAsync();
-            var notifications =  await _context.Notifications
-                .Where(x => x.UserId == user.Id)
-                .OrderByDescending(n => n.Date)
-                .ToListAsync();
-            return _mapper.Map<IReadOnlyList<Notifications>, IReadOnlyList<NotificationsDTO>>(notifications);
-        }
         private async Task NotifyUserAsync(string message)
         {
             await _hub.Clients.Client(NotificationsHub.ConnectionId).SendAsync("createNotify", message);
+        }
+        public async Task ReadingTheMessage(NotificationsDTO notificationsDTO)
+        {
+            var notification = await _context.Notifications.FindAsync(notificationsDTO.NotificationId);
+            var notificationInfo = _mapper.Map<Notifications>(notification);
+            notificationInfo.IsRead = true;
+            await _context.SaveChangesAsync();
+        }
+        public async Task<IReadOnlyList<NotificationsDTO>> GetNotificationsAsync(bool sortingByDateDescending, bool typeOfRead)
+        {
+            var user = await _userService.GetMe(); 
+            var notifications = _context.Notifications
+                .Where(x => x.UserId == user.Id)
+                .Where(y => typeOfRead ? (y.IsRead || !y.IsRead ) : !y.IsRead)
+                .Select(y => new Notifications
+                {
+                    UserId = y.UserId,
+                    NotificationId = y.NotificationId,
+                    Date = y.Date,
+                    IsRead = y.IsRead,
+                    Theme = y.Theme,
+                    Body = y.Body
+                });
+            notifications = sortingByDateDescending
+                ?  notifications.OrderByDescending(u => u.Date) 
+                :  notifications.OrderBy(u => u.Date);
+
+            return _mapper.Map<IReadOnlyList<Notifications>, IReadOnlyList<NotificationsDTO>>(notifications.ToList());
         }
     }
 }

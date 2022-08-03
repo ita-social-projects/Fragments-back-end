@@ -11,9 +11,7 @@ namespace Fragments.Data.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<UsersRole> UsersRoles { get; set; }
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
-        //
         public DbSet<Notifications> Notifications { get; set; }
-        //
         public EntityEntry Entry(object entity);
     }
 }

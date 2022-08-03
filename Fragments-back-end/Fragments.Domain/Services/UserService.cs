@@ -42,9 +42,9 @@ namespace Fragments.Domain.Services
             if (!(await _context.Users.AnyAsync(u => u.Email == user.Email)))
             {
                 AddWelcomeNotification(userInfo);
-
+                
                 await _context.Users.AddAsync(userInfo);
-
+                
                 await _context.SaveChangesAsync();
             }
         }
@@ -81,6 +81,7 @@ namespace Fragments.Domain.Services
 
             return userInfo;
         }
+        
         private void AddWelcomeNotification(User user) 
         {
             user.Notifications = new List<Notifications> { new Notifications  {

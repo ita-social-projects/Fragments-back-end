@@ -63,6 +63,7 @@ namespace Fragments.Data.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+
                         .HasDefaultValue(new DateTime(2022, 7, 31, 17, 9, 1, 411, DateTimeKind.Utc).AddTicks(8884));
 
                     b.Property<bool>("IsRead")
@@ -82,6 +83,7 @@ namespace Fragments.Data.Migrations
                     b.ToTable("Notifications");
                 });
 
+
             modelBuilder.Entity("Fragments.Data.Entities.Role", b =>
                 {
                     b.Property<int>("RoleId")
@@ -98,7 +100,6 @@ namespace Fragments.Data.Migrations
 
                     b.ToTable("Roles");
                 });
-
             modelBuilder.Entity("Fragments.Data.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -180,6 +181,7 @@ namespace Fragments.Data.Migrations
                     b.Navigation("User");
                 });
 
+
             modelBuilder.Entity("Fragments.Data.Entities.UsersRole", b =>
                 {
                     b.HasOne("Fragments.Data.Entities.Role", "Role")
@@ -211,6 +213,7 @@ namespace Fragments.Data.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("UsersRole");
+
                 });
 #pragma warning restore 612, 618
         }
