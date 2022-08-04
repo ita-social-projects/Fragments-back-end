@@ -18,20 +18,20 @@ namespace Fragments.Domain.Hubs
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
         }
-        public override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
             ConnectionId = Context.ConnectionId;
             if (Context.User != null)
             {
                 _userId = Context.User.FindFirst(ClaimTypes.Name)!.Value;
-                _ = EnterGroup(_userId);
+                await EnterGroup(_userId);
             }
-            return base.OnConnectedAsync();
+            await base.OnConnectedAsync();
         }
-        public override Task OnDisconnectedAsync(Exception? exception)
+        public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            _ = ExitGroup(_userId);
-            return base.OnDisconnectedAsync(exception);
+            await ExitGroup(_userId);
+            await base.OnDisconnectedAsync(exception);
         }
     }
 }
