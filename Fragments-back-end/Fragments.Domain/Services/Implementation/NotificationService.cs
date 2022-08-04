@@ -22,7 +22,7 @@ namespace Fragments.Domain.Services.Implementation
             _mapper = mapper;
             _userService = userService;
         }
-        public async Task ReadingTheMessage(NotificationsDTO notificationsDTO)
+        public async Task ReadingTheMessage(NotificationsDto notificationsDTO)
         {
             var notification = await _context.Notifications.FindAsync(notificationsDTO.NotificationId);
             var notificationInfo = _mapper.Map<Notifications>(notification);
@@ -30,7 +30,7 @@ namespace Fragments.Domain.Services.Implementation
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyList<NotificationsDTO>> GetNotificationsAsync(bool sortingByDateDescending, bool typeOfRead)
+        public async Task<IReadOnlyList<NotificationsDto>> GetNotificationsAsync(bool sortingByDateDescending, bool typeOfRead)
         {
             var user = await _userService.GetMe(); 
             var notifications = _context.Notifications
@@ -49,7 +49,7 @@ namespace Fragments.Domain.Services.Implementation
                 ?  notifications.OrderByDescending(u => u.Date) 
                 :  notifications.OrderBy(u => u.Date);
 
-            return _mapper.Map<IReadOnlyList<Notifications>, IReadOnlyList<NotificationsDTO>>(notifications.ToList());
+            return _mapper.Map<IReadOnlyList<Notifications>, IReadOnlyList<NotificationsDto>>(notifications.ToList());
         }
     }
 }

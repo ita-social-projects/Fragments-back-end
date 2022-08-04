@@ -19,7 +19,7 @@ namespace Fragments.Test.FluentValidationTest
         public void ChannelName_IsNotEmpty_NotGeneratesValidationError(string name)
         {
             //Arrange
-            var actual = new ChannelsOfRefferenceDTO { ChannelName = name };
+            var actual = new ChannelsOfRefferenceDto { ChannelName = name };
 
             //Act
             var result = validator.TestValidate(actual);
@@ -32,7 +32,7 @@ namespace Fragments.Test.FluentValidationTest
         public void ChannelName_IsEmpty_GeneratesValidationError(string name, string details)
         {
             //Arrange
-            var actual = new ChannelsOfRefferenceDTO { ChannelName = name, ChannelDetails = details };
+            var actual = new ChannelsOfRefferenceDto { ChannelName = name, ChannelDetails = details };
 
             //Act
             var result = validator.TestValidate(actual);
@@ -49,7 +49,7 @@ namespace Fragments.Test.FluentValidationTest
         public void ChannelDetails_IsNotEmpty_NotGeneratesValidationError(string details)
         {
             //Arrange
-            var actual = new ChannelsOfRefferenceDTO { ChannelDetails = details, };
+            var actual = new ChannelsOfRefferenceDto { ChannelDetails = details, };
 
             //Act
             var result = validator.TestValidate(actual);

@@ -28,7 +28,7 @@ namespace Fragments.Test.Services
 
         [Theory]
         [AutoEntityData]
-        public async Task CreateAsync_WhenUserIsValid_AddsToDb(UserDTO user)
+        public async Task CreateAsync_WhenUserIsValid_AddsToDb(UserDto user)
         {
             //Arrange
 
@@ -55,7 +55,7 @@ namespace Fragments.Test.Services
 
         [Theory]
         [AutoEntityData]
-        public async Task GetByIdAsync_WhenUserExists_ReturnsValidResponse(UserDTO user)
+        public async Task GetByIdAsync_WhenUserExists_ReturnsValidResponse(UserDto user)
         {
             //Arrange
             User user1 = Mapper.Map<User>(user);
@@ -75,7 +75,7 @@ namespace Fragments.Test.Services
             //Arrange
 
             // Act
-            Func<Task<UserDTO>> func = () => service.GetByIdAsync(id);
+            Func<Task<UserDto>> func = () => service.GetByIdAsync(id);
 
             // Assert
             await func.Should().ThrowAsync<Exception>().WithMessage("Not Found");

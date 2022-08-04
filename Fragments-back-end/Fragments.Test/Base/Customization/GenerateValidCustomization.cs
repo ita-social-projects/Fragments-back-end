@@ -10,7 +10,7 @@ namespace Fragments.Test.Base.Customization
     {
         public void Customize(IFixture fixture)
         {
-            fixture.Customize<UserDTO>(composer =>
+            fixture.Customize<UserDto>(composer =>
             composer
             .With(x =>
             x.Email,

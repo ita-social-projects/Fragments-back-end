@@ -8,19 +8,19 @@ namespace Fragments.Domain.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
 
-            CreateMap<User, UserDTO>();
+            CreateMap<User, UserDto>();
 
-            CreateMap<ChannelsOfRefference, ChannelsOfRefferenceDTO>().ReverseMap();
+            CreateMap<ChannelsOfRefference, ChannelsOfRefferenceDto>().ReverseMap();
             
-            CreateMap<ChannelsOfRefference, ChannelsOfRefferenceDTO>();
+            CreateMap<ChannelsOfRefference, ChannelsOfRefferenceDto>();
 
-            CreateMap<User, AuthenticateRequestDTO>().ReverseMap();
+            CreateMap<User, AuthenticateRequestDto>().ReverseMap();
 
-            CreateMap<Notifications, NotificationsDTO>().ReverseMap();
+            CreateMap<Notifications, NotificationsDto>().ReverseMap();
 
-            CreateMap<Notifications, NotificationsDTO>();
+            CreateMap<Notifications, NotificationsDto>();
         }
     }
 }

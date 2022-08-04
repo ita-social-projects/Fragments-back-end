@@ -36,7 +36,7 @@ namespace Fragments.Domain.Services
             return await _context.Users.AnyAsync(user => user.Email == email);
         }
 
-        public async Task CreateAsync(UserDTO user)
+        public async Task CreateAsync(UserDto user)
         {
             var userInfo = _mapper.Map<User>(user);
 
@@ -46,31 +46,31 @@ namespace Fragments.Domain.Services
 
             await _context.SaveChangesAsync();
         }
-        public async Task<AuthenticateResponseDTO> LoginAsync(AuthenticateRequestDTO model)
+        public async Task<AuthenticateResponseDto> LoginAsync(AuthenticateRequestDto model)
         {
             var user = await _context.Users.FirstOrDefaultAsync(user => user.Email == model.Email);
 
             var token = _configuration.GenerateJwtToken(user!);
 
-            return new AuthenticateResponseDTO(user!, token);
+            return new AuthenticateResponseDto(user!, token);
         }
 
-        public async Task<UserDTO> GetMe()
+        public async Task<UserDto> GetMe()
         {
             if (_httpContextAccessor.HttpContext != null)
             {
                 var result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
                 var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == int.Parse(result));
-                var response = _mapper.Map<UserDTO>(user);
+                var response = _mapper.Map<UserDto>(user);
                 return response;
             }
             return null!;
         }
 
-        public async Task<UserDTO> GetByIdAsync(int id)
+        public async Task<UserDto> GetByIdAsync(int id)
         {
             var user = await _context.Users.FindAsync(id);
-            var userInfo = _mapper.Map<UserDTO>(user);
+            var userInfo = _mapper.Map<UserDto>(user);
 
             if (userInfo == null)
             {
