@@ -28,7 +28,10 @@ namespace Fragments.Domain.Services.Implementation
             await _context.Notifications.AddAsync(addNotification);
             await _context.SaveChangesAsync();
 
-            await NotifyUserAsync("New notification!");
+            if (notification.UserId == (await _userService.GetMeAsync()).Id)
+            {
+                await NotifyUserAsync("New notification!");
+            }
 
             return notification;
         }
@@ -62,7 +65,8 @@ namespace Fragments.Domain.Services.Implementation
         }
         private async Task NotifyUserAsync(string message)
         {
-            await _hub.Clients.Client(NotificationsHub.ConnectionId).SendAsync("createNotify", message);
+            var groupName = (await _userService.GetMeAsync()).Id.ToString();
+            await _hub.Clients.Group(groupName).SendAsync("createNotify", message);
         }
     }
 }
