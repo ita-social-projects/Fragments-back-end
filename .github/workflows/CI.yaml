@@ -63,4 +63,4 @@ jobs:
           dotnetTestArguments: ./Fragments-back-end/Fragments.Test/Fragments.Test.csproj --no-restore -v n --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
           #/p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
-          dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+          #dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
