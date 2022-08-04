@@ -39,10 +39,5 @@ namespace Fragments.Data.Context
         {
             return await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
-
-        public override EntityEntry Entry(object entity)
-        {
-            return base.Entry(entity);
-        }
     }
 }

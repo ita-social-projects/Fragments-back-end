@@ -18,7 +18,7 @@ namespace Fragments.WebApi.Controllers
         }
 
         [HttpPost("readMessage")]
-        public async Task <IActionResult> ReadingTheMessage (NotificationsDTO messageDTO)
+        public async Task <IActionResult> ReadingTheMessage (NotificationsDto messageDTO)
         {
             await _notificationService.ReadingTheMessage(messageDTO);
             return Ok();

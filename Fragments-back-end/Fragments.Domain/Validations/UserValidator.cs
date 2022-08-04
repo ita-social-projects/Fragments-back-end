@@ -4,7 +4,7 @@ using Fragments.Domain.Services;
 
 namespace Fragments.Domain.Validations
 {
-    public class UserValidator : AbstractValidator<UserDTO>
+    public class UserValidator : AbstractValidator<UserDto>
     {
         public UserValidator(IUserService service)
         {

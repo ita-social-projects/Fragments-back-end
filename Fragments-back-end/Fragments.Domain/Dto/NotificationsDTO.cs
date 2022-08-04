@@ -1,6 +1,6 @@
 ﻿namespace Fragments.Domain.Dto
 {
-    public class NotificationsDTO
+    public class NotificationsDto
     {
         public int NotificationId { get; set; }
         public string Theme { get; set; } = null!;

@@ -1,6 +1,6 @@
 ﻿namespace Fragments.Domain.Dto
 {
-    public class ChannelsOfRefferenceDTO
+    public class ChannelsOfRefferenceDto
     {
         public int ChannelId { get; set; }
         public string ChannelName { get; set; } = null!;
