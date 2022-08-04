@@ -2,7 +2,6 @@
 using Fragments.Domain.Dto;
 using Fragments.Domain.Services.Interfaces;
 using Fragments.Domain.Validations;
-using Moq;
 
 namespace Fragments.Test.FluentValidationTest
 {
