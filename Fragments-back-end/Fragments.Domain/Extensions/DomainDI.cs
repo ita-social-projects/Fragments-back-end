@@ -20,6 +20,7 @@ namespace Fragments.Domain.Extensions
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IAdminService, AdminService>();
         }
         public static void AddJwtValidation(this IServiceCollection services, WebApplicationBuilder builder)
         {

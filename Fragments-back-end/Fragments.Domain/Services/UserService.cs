@@ -89,10 +89,8 @@ namespace Fragments.Domain.Services
             "Ви можете підтримати платформу, створити проект або долучитись до існуючих проектів",
 
                 Date = DateTime.Now,
-
                 }
             };
         }
-
     }
 }
