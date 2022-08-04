@@ -1,15 +1,11 @@
-﻿using FluentAssertions;
-using Fragments.Data.Context;
+﻿using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
-using Fragments.Domain.Helpers;
-using Fragments.Domain.Services.Interfaces;
 using Fragments.Domain.Services.Implementation;
+using Fragments.Domain.Services.Interfaces;
 using Fragments.Test.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.QualityTools.Testing.Fakes;
-using Moq;
 
 namespace Fragments.Test.Services
 {
