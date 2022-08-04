@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - 90-add-sonarcloud-coverage-for-fragments-back-end
   pull_request:
     branches:
       - master
