@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Fragments.Domain.Dto;
-using Fragments.Domain.Services;
+using Fragments.Domain.Services.Interfaces;
 
 namespace Fragments.Domain.Validations
 {

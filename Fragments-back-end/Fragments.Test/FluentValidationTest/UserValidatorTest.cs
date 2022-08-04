@@ -1,6 +1,6 @@
 ﻿using FluentValidation.TestHelper;
 using Fragments.Domain.Dto;
-using Fragments.Domain.Services;
+using Fragments.Domain.Services.Interfaces;
 using Fragments.Domain.Validations;
 using Moq;
 

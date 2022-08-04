@@ -1,7 +1,6 @@
 ﻿using Fragments.Data.Context;
-using Fragments.Domain.Services;
-using Fragments.Domain.Services.Implementation;
 using Fragments.Domain.Services.Interfaces;
+using Fragments.Domain.Services.Implementation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

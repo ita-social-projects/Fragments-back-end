@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
+using Fragments.Domain.Services.Interfaces;
 
 
-namespace Fragments.Domain.Services
+namespace Fragments.Domain.Services.Implementation
 {
-    public class UserService:IUserService
+    public class UserService : IUserService
     {
         private readonly IFragmentsContext _context;
         private readonly IMapper _mapper;

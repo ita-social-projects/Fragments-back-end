@@ -1,12 +1,10 @@
-﻿using FluentAssertions;
-using FluentAssertions.Execution;
+﻿using FluentAssertions.Execution;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
-using Fragments.Domain.Services;
+using Fragments.Domain.Services.Interfaces;
 using Fragments.Test.Base;
 using Fragments.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
 
 namespace Fragments.Test.Controllers
 {

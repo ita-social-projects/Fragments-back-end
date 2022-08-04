@@ -1,6 +1,6 @@
 ﻿using Fragments.Domain.Dto;
 
-namespace Fragments.Domain.Services
+namespace Fragments.Domain.Services.Interfaces
 {
     public interface IUserService
     {
