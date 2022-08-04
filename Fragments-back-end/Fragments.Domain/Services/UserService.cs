@@ -52,10 +52,10 @@ namespace Fragments.Domain.Services
 
             var token = _configuration.GenerateJwtToken(user);
             
-            return new AuthenticateResponseDTO(user, token);
+            return new AuthenticateResponseDto(user, token);
         }
 
-        public async Task<UserDTO> GetMeAsync()
+        public async Task<UserDto> GetMeAsync()
         {
             if (_httpContextAccessor.HttpContext != null)
             {

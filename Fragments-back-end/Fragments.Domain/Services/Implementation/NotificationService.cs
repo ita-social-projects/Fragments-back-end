@@ -22,7 +22,7 @@ namespace Fragments.Domain.Services.Implementation
             _hub = hub;
             _userService = userService;
         }
-        public async Task<NotificationsDTO> AddNotificationAsync(NotificationsDTO notification)
+        public async Task<NotificationsDto> AddNotificationAsync(NotificationsDto notification)
         {
             var addNotification = _mapper.Map<Notifications>(notification);
             await _context.Notifications.AddAsync(addNotification);
@@ -59,9 +59,9 @@ namespace Fragments.Domain.Services.Implementation
             var groupName = (await _userService.GetMeAsync()).Id.ToString();
             await _hub.Clients.Group(groupName).SendAsync("createNotify", message);
         }
-        public async Task ReadingTheMessage(NotificationsDto notificationsDTO)
+        public async Task ReadingTheMessage(NotificationsDto NotificationsDto)
         {
-            var notification = await _context.Notifications.FindAsync(notificationsDTO.NotificationId);
+            var notification = await _context.Notifications.FindAsync(NotificationsDto.NotificationId);
             var notificationInfo = _mapper.Map<Notifications>(notification);
             notificationInfo.IsRead = true;
             await _context.SaveChangesAsync();
@@ -69,7 +69,7 @@ namespace Fragments.Domain.Services.Implementation
 
         public async Task<IReadOnlyList<NotificationsDto>> GetNotificationsAsync(bool sortingByDateDescending, bool typeOfRead)
         {
-            var user = await _userService.GetMe(); 
+            var user = await _userService.GetMeAsync(); 
             var notifications = _context.Notifications
                 .Where(x => x.UserId == user.Id)
                 .Where(y => typeOfRead ? (y.IsRead || !y.IsRead ) : !y.IsRead)

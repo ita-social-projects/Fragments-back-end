@@ -10,26 +10,26 @@ namespace Fragments.WebApi.Controllers
     [ApiController]
     public class NotificationsController : ControllerBase
     {
-        private readonly INotificationService _notificationsService;
+        private readonly INotificationService _notificationService;
 
         public NotificationsController(INotificationService notificationService)
         {
-            _notificationsService = notificationService;
+            _notificationService = notificationService;
         }
 
         [HttpPost("create-notification")]
-        public async Task<IActionResult> CreateAsync(NotificationsDTO notification)
+        public async Task<IActionResult> CreateAsync(NotificationsDto notification)
         {
-            return Ok(await _notificationsService.AddNotificationAsync(notification));
+            return Ok(await _notificationService.AddNotificationAsync(notification));
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var deleted = await _notificationsService.DeleteNotificationAsync(id);
+            var deleted = await _notificationService.DeleteNotificationAsync(id);
             return deleted ? Ok() : Forbid();
         }
         [HttpPost("readMessage")]
-        public async Task <IActionResult> ReadingTheMessage(NotificationsDto messageDTO)
+        public async Task<IActionResult> ReadingTheMessage(NotificationsDto messageDTO)
         {
             await _notificationService.ReadingTheMessage(messageDTO);
             return Ok();

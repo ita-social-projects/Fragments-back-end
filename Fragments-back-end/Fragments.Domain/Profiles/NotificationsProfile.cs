@@ -8,9 +8,9 @@ namespace Fragments.Domain.Profiles
     {
         public NotificationsProfile()
         {
-            CreateMap<Notifications, NotificationsDTO>().ReverseMap().ForMember(x => x.User, opt => opt.Ignore());
+            CreateMap<Notifications, NotificationsDto>().ReverseMap().ForMember(x => x.User, opt => opt.Ignore());
 
-            CreateMap<Notifications, NotificationsDTO>();
+            CreateMap<Notifications, NotificationsDto>();
 
         }
     }
