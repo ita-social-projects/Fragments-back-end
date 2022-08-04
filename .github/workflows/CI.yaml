@@ -58,9 +58,8 @@ jobs:
           sonarProjectKey: ita-social-projects_Fragments-back-end
           sonarProjectName:  Fragments-back-end
           sonarOrganization: ita-social-projects
-          sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="/github/workspace/Fragments-back-end/Fragments.Test/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**Fragments.Test/*.trx" /d:sonar.coverage.exclusions=**/Fragments.Data/**,**/Fragments.Domain/Dto/**,**/Fragments.Domain/Extensions/**,**/Program.cs /d:sonar.exclusions=**/Fragments.Data/Migrations/**
+          sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="/github/workspace/Fragments-back-end/Fragments.Test/coverage.opencover.xml" /d:sonar.exclusions=**/Fragments.Data/Migrations/**
           dotnetBuildArguments: ./Fragments-back-end/Fragments-back-end.sln -c Debug
-          dotnetTestArguments: ./Fragments-back-end/Fragments.Test/Fragments.Test.csproj --no-restore -v n --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-          #/p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+          dotnetTestArguments: ./Fragments-back-end/Fragments.Test/Fragments.Test.csproj --no-restore -v n /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
-          #dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+          #sonarBeginArguments: #/d:sonar.coverage.exclusions=**/Fragments.Data/**,**/Fragments.Domain/Dto/**,**/Fragments.Domain/Extensions/**,**/Program.cs
