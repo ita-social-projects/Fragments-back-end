@@ -21,7 +21,7 @@ namespace Fragments.Test.FluentValidationTest
         {
             //Arrange 
             userService.Setup(service => service.IsEmailAlreadyExistsAsync(email)).ReturnsAsync(true);
-            var request = new AuthenticateRequestDTO { Email = email };
+            var request = new AuthenticateRequestDto { Email = email };
 
             //Act
             var result = validator.TestValidate(request);
@@ -35,7 +35,7 @@ namespace Fragments.Test.FluentValidationTest
         {
             //Arrange 
             userService.Setup(service => service.IsEmailAlreadyExistsAsync(email)).ReturnsAsync(false);
-            var request = new AuthenticateRequestDTO { Email = email };
+            var request = new AuthenticateRequestDto { Email = email };
 
             //Act
             var result = validator.TestValidate(request);

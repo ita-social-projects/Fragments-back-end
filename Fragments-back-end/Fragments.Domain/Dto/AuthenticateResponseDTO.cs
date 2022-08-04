@@ -2,14 +2,14 @@
 
 namespace Fragments.Domain.Dto
 {
-    public class AuthenticateResponseDTO
+    public class AuthenticateResponseDto
     {
         public int Id { get; set; }
-        public string FullName { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string Token { get; set; } = null!;
+        public string FullName { get; set; }
+        public string Email { get; set; } 
+        public string Token { get; set; } 
 
-        public AuthenticateResponseDTO(User user, string token)
+        public AuthenticateResponseDto(User user, string token)
         {
             Id = user.Id;
             FullName = user.FullName;

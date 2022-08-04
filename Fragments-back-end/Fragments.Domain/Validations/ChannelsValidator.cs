@@ -3,7 +3,7 @@ using Fragments.Domain.Dto;
 
 namespace Fragments.Domain.Validations
 {
-    public class ChannelsValidator : AbstractValidator<ChannelsOfRefferenceDTO>
+    public class ChannelsValidator : AbstractValidator<ChannelsOfRefferenceDto>
     {
         public ChannelsValidator()
         {

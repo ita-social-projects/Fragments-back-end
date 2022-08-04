@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Fragments.Domain.Validations
 {
-    public class AuthenticateValidator : AbstractValidator<AuthenticateRequestDTO>
+    public class AuthenticateValidator : AbstractValidator<AuthenticateRequestDto>
     {
         public AuthenticateValidator(IUserService service)
         {
