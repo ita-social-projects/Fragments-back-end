@@ -17,8 +17,7 @@ namespace Fragments.Data.Context
         public DbSet<Notifications> Notifications { get; set; } = null!;
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<UsersRole> UsersRoles { get; set; } = null!;
-
-        //
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

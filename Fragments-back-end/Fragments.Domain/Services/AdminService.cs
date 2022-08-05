@@ -13,20 +13,15 @@ using System.Threading.Tasks;
 
 namespace Fragments.Domain.Services
 {
-    internal class AdminService : IAdminService
+    public class AdminService : IAdminService
     {
         private readonly IFragmentsContext _context;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public AdminService(IFragmentsContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor,
-            IConfiguration configiguration)
+       
+        public AdminService(IFragmentsContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _httpContextAccessor = httpContextAccessor;
-            _configuration = configiguration;
         }
 
         public async Task AssignRole(RoleDTO roleDTO, int id)
@@ -75,42 +70,96 @@ namespace Fragments.Domain.Services
 
             }
         }
-        public async Task<IReadOnlyList<User>> GetUsersAsync()
+   
+        public async Task<IReadOnlyList<AdminDTO>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
-        }
+            var users = _context.Users.Select(u => new User
+            {
+                FullName = u.FullName,
+                Email = u.Email,
+                Birthday = u.Birthday,
+                RepresentativeAuthority = u.RepresentativeAuthority,
+                RepresentativeHEI = u.RepresentativeHEI,
+                UsersRole = u.UsersRole,
+                Id = u.Id
+            }) ;
 
-        //IEnumerable     
-        public async Task<IEnumerable<User>> Sort(SortDTO sortDTO)
+            return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDTO>>(await users.ToListAsync());
+        }
+   
+        public async Task<IEnumerable<AdminDTO>> Sort(SortDTO sortDTO)
         {
+            var users = _context.Users.Select(u => new User
+            {
+                FullName = u.FullName,
+                Email = u.Email,
+                Birthday = u.Birthday,
+                RepresentativeAuthority = u.RepresentativeAuthority,
+                RepresentativeHEI = u.RepresentativeHEI,
+                UsersRole = u.UsersRole,
+                Id = u.Id
+            });
             if (sortDTO !=null)
             {
                 switch (sortDTO.PropertyName, sortDTO.IsAscending)
                 {
                     case ("FullName",true):
-                        return  _context.Users.OrderBy(u => u.FullName);
-                        
+                        users = users.OrderBy(u => u.FullName);
+                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
+
                     case ("FullName", false):
-                        return  _context.Users.OrderByDescending(u=>u.FullName);
+                        users = users.OrderByDescending(u => u.FullName);
+                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
 
                     case ("Email", true):
-                        return  _context.Users.OrderBy(u => u.Email);
+                        users = users.OrderBy(u => u.Email);
+                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
 
                     case ("Email", false):
-                        return  _context.Users.OrderByDescending(u => u.Email);
-                    
+                        users = users.OrderByDescending(u => u.Email);
+                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
+
                     default:
-                        return await _context.Users.ToListAsync();
+                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
                 }
             }
             else
             {
-                return await _context.Users.ToListAsync();
+                return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
             }
         }
-        public async Task<List<User>> Filter(FilterDTO filterDTO)
+        public async Task<IReadOnlyList<AdminDTO>> GetUserWithSearchAsync(FilterAndSearchDTO ?filterAndSearchDTO)
         {
-            return await _context.Users.Where(user => user.UsersRole.Any(urm => filterDTO.roles.Contains(urm.Role.RoleName))).ToListAsync();
+            // Dto i text => v 1 DTO +
+            // 1 where umova
+            // bez zovnishnih ifiw  + 
+            // ()?true:nakladaeo umovy
+            // z i
+            var users = _context.Users.Where(  string.IsNullOrEmpty(filterAndSearchDTO.SearchText)?():(s => s.Email!.Contains(filterAndSearchDTO.SearchText) || s.FullName!.Contains(filterAndSearchDTO.SearchText)) )
+            .Select(s => new User
+            {
+                        Email = s.Email,
+                        FullName = s.FullName,
+                        RepresentativeAuthority = s.RepresentativeAuthority,
+                        RepresentativeHEI = s.RepresentativeHEI,
+                        UsersRole = s.UsersRole,
+                        Id = s.Id,
+                        Birthday = s.Birthday
+
+            });
+
+
+            //Po vsiomu
+            //if (filterDTO!.IsFiltering)
+            //{
+            //        users = users.Where(u => u.UsersRole.Any(urm => filterDTO.roles.Contains(urm.Role.RoleName))
+            //        || u.RepresentativeAuthority == filterDTO.RepresentativeAuthority
+            //        || u.RepresentativeHEI == filterDTO.RepresentativeHEI); 
+            //}
+           
+
+            return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDTO>>(await users.ToListAsync());
         }
+        
     }
 }

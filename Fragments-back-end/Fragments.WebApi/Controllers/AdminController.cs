@@ -23,19 +23,19 @@ namespace Fragments.WebApi.Controllers
             return Ok();
         }
         [HttpGet("get-all")]
-        public IActionResult GetAll(int id)
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_adminService.GetUsersAsync());
+            return Ok(await _adminService.GetUsersAsync()); 
         }
         [HttpGet("sort")]
-        public IActionResult Sort(SortDTO sortDTO)
+        public async Task<IActionResult> Sort([FromQuery]SortDTO sortDTO)
         {
-            return Ok(_adminService.Sort(sortDTO));
+            return Ok(await _adminService.Sort(sortDTO));
         }
-        [HttpGet("filter")]
-        public IActionResult Filter(FilterDTO filterDTO)
+        [HttpGet("getUsersBySearch")]
+        public async Task<IReadOnlyList<AdminDTO>> getSearchAsync([FromQuery]FilterAndSearchDTO ?filterAndSearchDTO)
         {
-            return Ok(_adminService.Filter(filterDTO));
+            return await _adminService.GetUserWithSearchAsync(filterAndSearchDTO);
         }
 
     }
