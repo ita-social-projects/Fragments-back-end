@@ -57,7 +57,7 @@ jobs:
           sonarOrganization: ita-social-projects
           sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="/github/workspace/Fragments-back-end/Fragments.Test/coverage.opencover.xml" /d:sonar.coverage.exclusions=**/Fragments.Data/**,**/Fragments.Domain/Dto/**,**/Fragments.Domain/Extensions/**,**/Program.cs /d:sonar.exclusions=**/Fragments.Data/Migrations/**
           dotnetBuildArguments: ./Fragments-back-end/Fragments-back-end.sln -c Debug
-          dotnetTestArguments: ./Fragments-back-end/Fragments.Test/Fragments.Test.csproj --no-restore -v n /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+          dotnetTestArguments: ./Fragments-back-end/Fragments.Test/Fragments.Test.csproj --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
