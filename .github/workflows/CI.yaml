@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - Change-testing-verbosity-and-sonarcloud-parameters
   pull_request:
     branches:
       - master
