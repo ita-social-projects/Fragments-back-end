@@ -1,4 +1,4 @@
-name: CI_release
+name: CI
 on:
   push:
     branches:
@@ -33,7 +33,7 @@ jobs:
         working-directory: Fragments-back-end/Fragments.WebApi
 
       - name: Test
-        run: dotnet test --no-restore --verbosity detailed
+        run: dotnet test --no-restore --verbosity normal
         working-directory: Fragments-back-end/Fragments.Test
 
   sonarcloud_analysis:
