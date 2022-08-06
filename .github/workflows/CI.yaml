@@ -35,7 +35,7 @@ jobs:
         working-directory: Fragments-back-end/Fragments.WebApi
 
       - name: Test
-        run: dotnet test --no-restore -v n
+        run: dotnet test --no-restore --verbosity detailed
         working-directory: Fragments-back-end/Fragments.Test
 
 
@@ -54,8 +54,6 @@ jobs:
           sonarProjectKey: ita-social-projects_Fragments-back-end
           sonarProjectName:  Fragments-back-end
           sonarOrganization: ita-social-projects
-          sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="/github/workspace/Fragments-back-end/Fragments.Test/coverage.opencover.xml" /d:sonar.exclusions=**/Fragments.Data/Migrations/**
+          sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="/github/workspace/Fragments-back-end/Fragments.Test/coverage.opencover.xml" /d:sonar.coverage.exclusions=**/Fragments.Data/**,**/Fragments.Domain/Dto/**,**/Fragments.Domain/Extensions/**,**/Program.cs /d:sonar.exclusions=**/Fragments.Data/Migrations/**
           dotnetBuildArguments: ./Fragments-back-end/Fragments-back-end.sln -c Debug
-          dotnetTestArguments: ./Fragments-back-end/Fragments.Test/Fragments.Test.csproj --no-restore -v n /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-
-          #sonarBeginArguments: #/d:sonar.coverage.exclusions=**/Fragments.Data/**,**/Fragments.Domain/Dto/**,**/Fragments.Domain/Extensions/**,**/Program.cs
+          dotnetTestArguments: ./Fragments-back-end/Fragments.Test/Fragments.Test.csproj --no-restore --verbosity detailed /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
