@@ -25,7 +25,7 @@ ToDo
 ToDo
 
 ## CHECK LIST
-- [Build and Test](https://github.com/ita-social-projects/Fragments-back-end/actions/workflows/CI.yaml/badge.svg)
+- [![CI](https://github.com/ita-social-projects/Fragments-back-end/actions/workflows/CI.yaml/badge.svg)](https://github.com/ita-social-projects/Fragments-back-end/actions/workflows/CI.yaml)
 - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ita-social-projects_Fragments-back-end&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ita-social-projects_Fragments-back-end) | Sonarcloud analysis
 - [ ]  PR is reviewed manually again (to make sure you have 100% ready code)
 - [ ]  All reviewers agreed to merge the PR
