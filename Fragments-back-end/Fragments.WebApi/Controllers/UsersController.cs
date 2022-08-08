@@ -1,5 +1,5 @@
 using Fragments.Domain.Dto;
-using Fragments.Domain.Services;
+using Fragments.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +18,7 @@ namespace Fragments.WebApi.Controllers
         [HttpGet("get-me"), Authorize]
         public async Task<IActionResult> GetMe()
         {
-            var userName = await _userService.GetMe();
+            var userName = await _userService.GetMeAsync();
             return Ok(userName);
         }
         [HttpPost("register")]

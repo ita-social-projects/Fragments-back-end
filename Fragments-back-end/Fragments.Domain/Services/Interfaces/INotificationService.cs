@@ -1,11 +1,12 @@
-﻿using Fragments.Domain.Dto;
+using Fragments.Domain.Dto;
 
 namespace Fragments.Domain.Services.Interfaces
 {
     public interface INotificationService
     {
-        Task ReadingTheMessage(NotificationsDto notificationsDTO);
+        Task<NotificationsDto> AddNotificationAsync(NotificationsDto notification);
+        Task<bool> DeleteNotificationAsync(int notificationId);
+        Task ReadingTheMessage(NotificationsDto NotificationsDto);
         Task<IReadOnlyList<NotificationsDto>> GetNotificationsAsync(bool sortingBy, bool typeOfRead);
-
     }
 }

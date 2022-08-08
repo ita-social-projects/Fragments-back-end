@@ -1,12 +1,10 @@
-﻿using FluentAssertions;
-using FluentAssertions.Execution;
+﻿using FluentAssertions.Execution;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
-using Fragments.Domain.Services;
+using Fragments.Domain.Services.Interfaces;
 using Fragments.Test.Base;
 using Fragments.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
 
 namespace Fragments.Test.Controllers
 {
@@ -86,7 +84,7 @@ namespace Fragments.Test.Controllers
         public async Task GetMe_WhenUserExists_ReturnsOkObjectResult(UserDto user)
         {
             // Arrange
-            userService.Setup(service => service.GetMe()).ReturnsAsync(user);
+            userService.Setup(service => service.GetMeAsync()).ReturnsAsync(user);
 
             // Act
             var result = await userController.GetMe();

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
+using Fragments.Domain.Services.Interfaces;
 
 
-namespace Fragments.Domain.Services
+namespace Fragments.Domain.Services.Implementation
 {
-    public class UserService:IUserService
+    public class UserService : IUserService
     {
         private readonly IFragmentsContext _context;
         private readonly IMapper _mapper;
@@ -48,14 +49,14 @@ namespace Fragments.Domain.Services
         }
         public async Task<AuthenticateResponseDto> LoginAsync(AuthenticateRequestDto model)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(user => user.Email == model.Email);
+            var user = await _context.Users.FirstAsync(user => user.Email == model.Email);
 
-            var token = _configuration.GenerateJwtToken(user!);
-
-            return new AuthenticateResponseDto(user!, token);
+            var token = _configuration.GenerateJwtToken(user);
+            
+            return new AuthenticateResponseDto(user, token);
         }
 
-        public async Task<UserDto> GetMe()
+        public async Task<UserDto> GetMeAsync()
         {
             if (_httpContextAccessor.HttpContext != null)
             {
@@ -69,18 +70,13 @@ namespace Fragments.Domain.Services
 
         public async Task<UserDto> GetByIdAsync(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            var userInfo = _mapper.Map<UserDto>(user);
+            var user = await _context.Users.FirstAsync(x => x.Id == id);
 
-            if (userInfo == null)
-            {
-                throw new Exception("Not Found");
-            }
+            var userInfo = _mapper.Map<UserDto>(user);
 
             return userInfo;
         }
-        
-        private void AddWelcomeNotification(User user) 
+        private static void AddWelcomeNotification(User user) 
         {
             user.Notifications = new List<Notifications> { new Notifications  {
                 Theme = "Вітання у Fragmenty",
@@ -93,6 +89,5 @@ namespace Fragments.Domain.Services
                 }
             };
         }
-
     }
 }

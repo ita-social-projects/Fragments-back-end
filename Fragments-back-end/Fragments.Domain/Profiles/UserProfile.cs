@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
+using System.Collections.Generic;
 
 namespace Fragments.Domain.Profiles
 {

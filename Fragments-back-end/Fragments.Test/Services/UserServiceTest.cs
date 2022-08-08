@@ -1,14 +1,11 @@
-﻿using FluentAssertions;
-using Fragments.Data.Context;
+﻿using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
-using Fragments.Domain.Helpers;
-using Fragments.Domain.Services;
+using Fragments.Domain.Services.Implementation;
+using Fragments.Domain.Services.Interfaces;
 using Fragments.Test.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.QualityTools.Testing.Fakes;
-using Moq;
 
 namespace Fragments.Test.Services
 {
@@ -47,7 +44,7 @@ namespace Fragments.Test.Services
             httpContextAccessor.SetupGet(x => x.HttpContext).Returns((HttpContext?)null);
 
             // Act
-            var result = await service.GetMe();
+            var result = await service.GetMeAsync();
 
             // Assert
             result.Should().BeNull();
@@ -78,7 +75,7 @@ namespace Fragments.Test.Services
             Func<Task<UserDto>> func = () => service.GetByIdAsync(id);
 
             // Assert
-            await func.Should().ThrowAsync<Exception>().WithMessage("Not Found");
+            await func.Should().ThrowAsync<Exception>();
         }
     }
 }
