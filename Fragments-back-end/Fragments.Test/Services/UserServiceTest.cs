@@ -75,7 +75,7 @@ namespace Fragments.Test.Services
             Func<Task<UserDto>> func = () => service.GetByIdAsync(id);
 
             // Assert
-            await func.Should().ThrowAsync<ArgumentNullException>();
+            await func.Should().ThrowAsync<Exception>();
         }
     }
 }
