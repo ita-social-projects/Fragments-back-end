@@ -6,6 +6,7 @@ using Fragments.Domain.Services.Interfaces;
 using Fragments.Test.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 
 namespace Fragments.Test.Services
 {
@@ -38,9 +39,10 @@ namespace Fragments.Test.Services
         }
 
         [Fact]
-        public async Task GetMe_WhenUserIsNotAuthorized_ReturnsNull()
+        public async Task GetMeAsync_WhenUserIsNotAuthorized_ReturnsNull()
         {
             //Arrange
+
             httpContextAccessor.SetupGet(x => x.HttpContext).Returns((HttpContext?)null);
 
             // Act
@@ -48,6 +50,22 @@ namespace Fragments.Test.Services
 
             // Assert
             result.Should().BeNull();
+        }
+        [Theory]
+        [AutoEntityData]
+        public async Task GetMeAsync_WhenUserIsNotAuthorized_ReturnsCorrectUser(User user)
+        {
+            //Arrange
+            await context.Users.AddAsync(user);
+            await context.SaveChangesAsync();
+            var claims = new List<Claim>() { new Claim(ClaimTypes.Name, user.Id.ToString()) };
+            httpContextAccessor.Setup(h => h.HttpContext!.User.Claims).Returns(claims);
+
+            // Act
+            var result = await service.GetMeAsync();
+
+            // Assert
+            result.Should().NotBeNull();
         }
 
         [Theory]
@@ -76,6 +94,31 @@ namespace Fragments.Test.Services
 
             // Assert
             await func.Should().ThrowAsync<Exception>();
+        }
+        [Theory]
+        [AutoEntityData]
+        public async Task IsEmailExist_WhenUserIsNotExist_ReturnsFalse(User user)
+        {
+            //Arrange
+
+            // Act
+            var result = await service.IsEmailAlreadyExistsAsync(user.Email);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+        [Theory]
+        [AutoEntityData]
+        public async Task IsEmailExist_WhenUserIsNotExist_ReturnsTrue(User user)
+        {
+            //Arrange
+            await context.Users.AddAsync(user);
+            await context.SaveChangesAsync();
+            // Act
+            var result = await service.IsEmailAlreadyExistsAsync(user.Email);
+
+            // Assert
+            result.Should().BeTrue();
         }
     }
 }
