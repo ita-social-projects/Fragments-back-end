@@ -75,7 +75,7 @@ namespace Fragments.Domain.Services.Implementation
 
             if (userInfo == null)
             {
-                throw new Exception("Not Found");
+                throw new ArgumentNullException("Not Found");
             }
 
             return userInfo;
