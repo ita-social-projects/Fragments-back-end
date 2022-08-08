@@ -70,17 +70,13 @@ namespace Fragments.Domain.Services.Implementation
 
         public async Task<UserDto> GetByIdAsync(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            var userInfo = _mapper.Map<UserDto>(user);
+            var user = await _context.Users.FirstAsync(x => x.Id == id);
 
-            if (userInfo == null)
-            {
-                throw new ArgumentNullException("Not Found");
-            }
+            var userInfo = _mapper.Map<UserDto>(user);
 
             return userInfo;
         }
-        private void AddWelcomeNotification(User user) 
+        private static void AddWelcomeNotification(User user) 
         {
             user.Notifications = new List<Notifications> { new Notifications  {
                 Theme = "Вітання у Fragmenty",
