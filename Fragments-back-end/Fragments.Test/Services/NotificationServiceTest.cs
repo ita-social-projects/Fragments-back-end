@@ -14,7 +14,6 @@ namespace Fragments.Test.Services
     {
         private readonly FragmentsContext context;
         private readonly Mock<IHubContext<NotificationsHub>> hub;
-        private readonly Mock<IClientProxy> clientProxy;
         private readonly Mock<IUserService> userService;
         private readonly INotificationService service;
 
@@ -22,7 +21,6 @@ namespace Fragments.Test.Services
         {
             context = ContextGenerator.GetContext();
             hub = new Mock<IHubContext<NotificationsHub>>();
-            clientProxy = new Mock<IClientProxy>();
             userService = new Mock<IUserService>();
             service = new NotificationService(context, Mapper, hub.Object, userService.Object);
         }
@@ -98,9 +96,10 @@ namespace Fragments.Test.Services
         }
         [Theory]
         [AutoEntityData]
-        public async Task GetNotificationsAsync_Returns_AllNotificationsOfUser(bool sortingBy, bool typeOfRead, UserDto user )
+        public async Task GetNotificationsAsync_Returns_ReadNotificationsOfUser(bool sortingBy, UserDto user )
         {
             //Arrange
+            bool typeOfRead = true;
             userService.Setup(service => service.GetMeAsync()).ReturnsAsync(user);
             IEnumerable<Notifications> notifications = new List<Notifications>
             {
@@ -125,6 +124,41 @@ namespace Fragments.Test.Services
                    Body = "test3",
                    UserId = user.Id,
                    IsRead = typeOfRead,
+               },
+            };
+            await context.Notifications.AddRangeAsync(notifications);
+            await context.SaveChangesAsync();
+
+            //Act
+            var result = await service.GetNotificationsAsync(sortingBy, typeOfRead);
+
+            //Assert
+            result.Should().NotBeEmpty();
+
+        }
+        [Theory]
+        [AutoEntityData]
+        public async Task GetNotificationsAsync_Returns_UnreadNotificationsOfUser(bool sortingBy, UserDto user)
+        {
+            //Arrange
+            bool typeOfRead = false;
+            userService.Setup(service => service.GetMeAsync()).ReturnsAsync(user);
+            IEnumerable<Notifications> notifications = new List<Notifications>
+            {
+               new Notifications
+               {
+                   Theme = "test4",
+                   Body = "test4",
+                   UserId = user.Id,
+                   IsRead = typeOfRead,
+               },
+               new Notifications
+               {
+                   Theme = "test5",
+                   Body = "test5",
+                   UserId = user.Id,
+                   IsRead = typeOfRead,
+
                },
             };
             await context.Notifications.AddRangeAsync(notifications);
