@@ -130,12 +130,22 @@ namespace Fragments.Domain.Services
         }
         public async Task<IReadOnlyList<AdminDTO>> GetUserWithSearchAsync(FilterAndSearchDTO ?filterAndSearchDTO)
         {
-            // Dto i text => v 1 DTO +
-            // 1 where umova
-            // bez zovnishnih ifiw  + 
-            // ()?true:nakladaeo umovy
-            // z i
-            var users = _context.Users.Where(  string.IsNullOrEmpty(filterAndSearchDTO.SearchText)?():(s => s.Email!.Contains(filterAndSearchDTO.SearchText) || s.FullName!.Contains(filterAndSearchDTO.SearchText)) )
+            var splited = filterAndSearchDTO!.SearchText.Split(" ");
+
+            var users = _context.Users
+                .AsAsyncEnumerable()
+                //.AsEnumerable()
+                .Where(string.IsNullOrEmpty(filterAndSearchDTO?.SearchText)
+                    ? (s => s.Id != 0)
+                    : (s => splited.All(x => s.Email!.Contains(x) || s.FullName!.Contains(x))))
+                .Where(q =>
+                (filterAndSearchDTO!.RepresentativeHEI
+                    ? q.RepresentativeHEI
+                    : q.RepresentativeAuthority || !q.RepresentativeAuthority)
+                    && (filterAndSearchDTO!.RepresentativeAuthority
+                    ? q.RepresentativeAuthority
+                    : q.RepresentativeHEI || !q.RepresentativeHEI)
+                )
             .Select(s => new User
             {
                         Email = s.Email,
@@ -146,20 +156,42 @@ namespace Fragments.Domain.Services
                         Id = s.Id,
                         Birthday = s.Birthday
 
-            });
-
-
-            //Po vsiomu
-            //if (filterDTO!.IsFiltering)
-            //{
-            //        users = users.Where(u => u.UsersRole.Any(urm => filterDTO.roles.Contains(urm.Role.RoleName))
-            //        || u.RepresentativeAuthority == filterDTO.RepresentativeAuthority
-            //        || u.RepresentativeHEI == filterDTO.RepresentativeHEI); 
-            //}
-           
-
-            return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDTO>>(await users.ToListAsync());
+            });   
+                 return  _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDTO>>(await users.ToListAsync());
         }
-        
+        //public bool ContainsThis( User str1, string values)
+        //{
+        //    var str = str1.Email!;
+
+        //    var stp = values.Split(" ");
+        //    if (stp.Length > 0)
+        //    {
+        //        foreach (string value in stp)
+        //        {
+        //            if (str.Contains(value))
+        //                return false;
+        //        }
+        //    }
+
+        //    return true;
+        //}
     }
+
+    //public static class StringExtensions
+    //{
+    //    public static bool ContainsAll(this List<User> str, string values)
+    //    {
+    //        var stp = values.Split(' ');
+    //        if (stp.Length > 0)
+    //        {
+    //            foreach (string value in stp)
+    //            {
+    //                if (str.Contains(stp) == false)
+    //                    return false;
+    //            }
+    //        }
+
+    //        return true;
+    //    }
+    //}
 }
