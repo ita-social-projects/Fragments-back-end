@@ -14,5 +14,6 @@ namespace Fragments.Domain.Services
         Task<IEnumerable<AdminDTO>> Sort(SortDTO sortDTO);
         Task AssignRole(RoleDTO roleDTO, int id);
         Task<IReadOnlyList<AdminDTO>> GetUserWithSearchAsync(FilterAndSearchDTO ?filterAndSearchDTO);
+        Task<IEnumerable<AdminDTO>> GetPageAsync(SortDTO sortDTO, FilterAndSearchDTO filterAndSearchDTO, int page);
     }
 }

@@ -130,36 +130,94 @@ namespace Fragments.Domain.Services
         }
         public async Task<IReadOnlyList<AdminDTO>> GetUserWithSearchAsync(FilterAndSearchDTO ?filterAndSearchDTO)
         {
-            // Dto i text => v 1 DTO +
-            // 1 where umova
-            // bez zovnishnih ifiw  + 
-            // ()?true:nakladaeo umovy
-            // z i
-            var users = _context.Users.Where(  string.IsNullOrEmpty(filterAndSearchDTO.SearchText)?():(s => s.Email!.Contains(filterAndSearchDTO.SearchText) || s.FullName!.Contains(filterAndSearchDTO.SearchText)) )
+            var users = _context.Users
+                .Where(string.IsNullOrEmpty(filterAndSearchDTO?.SearchText)
+                ? (s => s.Id != 0)
+                : (s => s.Email!.Contains(filterAndSearchDTO.SearchText) || s.FullName!.Contains(filterAndSearchDTO.SearchText)))
+                .Where(q =>
+                (filterAndSearchDTO!.RepresentativeHEI
+                ? q.RepresentativeHEI
+                : q.RepresentativeAuthority || !q.RepresentativeAuthority)
+                && (filterAndSearchDTO!.RepresentativeAuthority
+                ? q.RepresentativeAuthority
+                : q.RepresentativeHEI || !q.RepresentativeHEI)
+                )
             .Select(s => new User
             {
-                        Email = s.Email,
-                        FullName = s.FullName,
-                        RepresentativeAuthority = s.RepresentativeAuthority,
-                        RepresentativeHEI = s.RepresentativeHEI,
-                        UsersRole = s.UsersRole,
-                        Id = s.Id,
-                        Birthday = s.Birthday
+                Email = s.Email,
+                FullName = s.FullName,
+                RepresentativeAuthority = s.RepresentativeAuthority,
+                RepresentativeHEI = s.RepresentativeHEI,
+                UsersRole = s.UsersRole,
+                Id = s.Id,
+                Birthday = s.Birthday
 
             });
 
-
-            //Po vsiomu
-            //if (filterDTO!.IsFiltering)
-            //{
-            //        users = users.Where(u => u.UsersRole.Any(urm => filterDTO.roles.Contains(urm.Role.RoleName))
-            //        || u.RepresentativeAuthority == filterDTO.RepresentativeAuthority
-            //        || u.RepresentativeHEI == filterDTO.RepresentativeHEI); 
-            //}
-           
-
             return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDTO>>(await users.ToListAsync());
         }
+
         
+
+        public async Task<IEnumerable<AdminDTO>> GetPageAsync(SortDTO sortDTO,FilterAndSearchDTO filterAndSearchDTO,int page)
+        {
+            const int pageSize = 25;
+
+            var users = _context.Users
+               .Where(string.IsNullOrEmpty(filterAndSearchDTO?.SearchText)
+               ? (s => s.Id != 0)
+               : (s => s.Email!.Contains(filterAndSearchDTO.SearchText) || s.FullName!.Contains(filterAndSearchDTO.SearchText)))
+               .Where(q =>
+               (filterAndSearchDTO!.RepresentativeHEI
+               ? q.RepresentativeHEI
+               : q.RepresentativeAuthority || !q.RepresentativeAuthority)
+               && (filterAndSearchDTO!.RepresentativeAuthority
+               ? q.RepresentativeAuthority
+               : q.RepresentativeHEI || !q.RepresentativeHEI)
+               )
+           .Select(s => new User
+           {
+               Email = s.Email,
+               FullName = s.FullName,
+               RepresentativeAuthority = s.RepresentativeAuthority,
+               RepresentativeHEI = s.RepresentativeHEI,
+               UsersRole = s.UsersRole,
+               Id = s.Id,
+               Birthday = s.Birthday
+
+           });
+           if (sortDTO != null)
+           {
+               switch (sortDTO.PropertyName, sortDTO.IsAscending)
+               {
+                    case ("FullName", true):
+                        users = users.OrderBy(u => u.FullName);
+                        break;
+
+                    case ("FullName", false):
+                        users = users.OrderByDescending(u => u.FullName);
+                        break;
+
+                    case ("Email", true):
+                        users = users.OrderBy(u => u.Email);
+                        break;
+
+                    case ("Email", false):
+                        users = users.OrderByDescending(u => u.Email);
+                        break;
+
+                    default:
+                        break;
+                }
+           }
+
+            return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDTO>>(await users
+                .Skip((page- 1) * pageSize).Take(pageSize).ToListAsync());
+
+            
+        }
+
+
+
     }
 }

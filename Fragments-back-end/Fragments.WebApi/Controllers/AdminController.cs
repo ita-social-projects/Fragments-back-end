@@ -37,6 +37,13 @@ namespace Fragments.WebApi.Controllers
         {
             return await _adminService.GetUserWithSearchAsync(filterAndSearchDTO);
         }
+        [HttpGet("get-page")]
+        public async Task<IEnumerable<AdminDTO>> getPage([FromQuery] FilterAndSearchDTO? filterAndSearchDTO,
+            [FromQuery] SortDTO sortDTO,
+            int page)
+        {
+            return await _adminService.GetPageAsync(sortDTO, filterAndSearchDTO!, page);
+        }
 
     }
 }
