@@ -157,8 +157,6 @@ namespace Fragments.Domain.Services
             return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDTO>>(await users.ToListAsync());
         }
 
-        
-
         public async Task<IEnumerable<AdminDTO>> GetPageAsync(SortDTO sortDTO,FilterAndSearchDTO filterAndSearchDTO,int page)
         {
             const int pageSize = 25;
