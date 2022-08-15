@@ -40,12 +40,14 @@ namespace Fragments.Domain.Services.Implementation
         public async Task CreateAsync(UserDto user)
         {
             var userInfo = _mapper.Map<User>(user);
+            if (!(await _context.Users.AnyAsync(u => u.Email == user.Email)))
+            {    
+                AddWelcomeNotification(userInfo);
 
-            AddWelcomeNotification(userInfo);
+                await _context.Users.AddAsync(userInfo);
 
-            await _context.Users.AddAsync(userInfo);
-
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+            }
         }
         public async Task<AuthenticateResponseDto> LoginAsync(AuthenticateRequestDto model)
         {
@@ -88,6 +90,56 @@ namespace Fragments.Domain.Services.Implementation
 
                 }
             };
+        }
+        public async Task UpdateAsync(UserDto user)
+        {
+            var existingUser = _context.Users
+            .Where(p => p.Id == user.Id)
+            .Include(p => p.ChannelsOfRefferences)
+             .Single();
+
+            if (existingUser != null
+                && existingUser.ChannelsOfRefferences != null
+                && user.ChannelsOfRefferences != null)
+            {
+                _context.Entry(existingUser).CurrentValues.SetValues(user);
+
+                foreach (var existingChannel in existingUser.ChannelsOfRefferences.ToList())
+                {
+                    if (!user.ChannelsOfRefferences.Any(c => c.ChannelId == existingChannel.ChannelId))
+                    {
+                        _context.ChannelsOfRefferences.Remove(existingChannel);
+                    }
+
+                }
+                foreach (var channel in user.ChannelsOfRefferences)
+                {
+                    if (channel.ChannelId != 0)
+                    {
+                        var existingChannel = existingUser.ChannelsOfRefferences
+                        .Where(c => c.ChannelId == channel.ChannelId)
+                        .SingleOrDefault();
+                        if (existingChannel != null)
+                        {
+                            _context.Entry(existingChannel).CurrentValues.SetValues(channel);
+                        }
+                    }
+                    else
+                    {
+
+                        var newChannel = new ChannelsOfRefference
+                        {
+                            ChannelDetails = channel.ChannelDetails,
+                            ChannelName = channel.ChannelName,
+                            UserId = existingUser.Id,
+                        };
+                        existingUser.ChannelsOfRefferences.Add(newChannel);
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
         }
     }
 }
