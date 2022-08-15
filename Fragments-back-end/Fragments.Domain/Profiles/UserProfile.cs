@@ -17,7 +17,7 @@ namespace Fragments.Domain.Profiles
             
             CreateMap<ChannelsOfRefference, ChannelsOfRefferenceDto>();
 
-            CreateMap<User, AuthenticateRequestDTO>().ReverseMap();
+            CreateMap<User, AuthenticateRequestDto>().ReverseMap();
 
             CreateMap<User,AdminDTO>().ReverseMap();
 

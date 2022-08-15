@@ -18,7 +18,7 @@ namespace Fragments.Domain.Extensions
         }
         public static void AddDI(this IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<Services.IUserService, Services.UserService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IAdminService,AdminService>();
         }
