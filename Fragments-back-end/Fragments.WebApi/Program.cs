@@ -29,7 +29,7 @@ builder.Services.AddDomainDataServices();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDI();
 builder.Services.AddFluentValidation(config => config
-    .RegisterValidatorsFromAssemblyContaining<UserService>());
+    .RegisterValidatorsFromAssemblyContaining<Fragments.Domain.Services.UserService>());
 
 var mapperConfig = new MapperConfiguration(mc =>
 {
