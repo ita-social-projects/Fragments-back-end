@@ -48,7 +48,7 @@ namespace Fragments.WebApi.Controllers
             return Ok(new { message = "Logout is successful." });
         }
         [HttpPut("update")]
-        public async Task<ActionResult<UserDTO>> Update(UserDTO user)
+        public async Task<ActionResult<UserDto>> Update(UserDto user)
         {
             await _userService.UpdateAsync(user);
             return Ok();
