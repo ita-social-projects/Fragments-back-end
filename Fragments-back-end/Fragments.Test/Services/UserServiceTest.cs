@@ -2,7 +2,7 @@
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
 using Fragments.Domain.Services.Implementation;
-using Fragments.Domain.Services.Interfaces;
+using Fragments.Domain.Services;
 using Fragments.Test.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +20,7 @@ namespace Fragments.Test.Services
             configuration = new Mock<IConfiguration>();
             httpContextAccessor = new Mock<IHttpContextAccessor>();
             context = ContextGenerator.GetContext();
-            service = new UserService(context, Mapper, httpContextAccessor.Object, configuration.Object);
+            service = new Domain.Services.Implementation.UserService(context, Mapper, httpContextAccessor.Object, configuration.Object);
         }
 
         [Theory]
