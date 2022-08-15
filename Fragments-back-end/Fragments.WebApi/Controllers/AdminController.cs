@@ -1,7 +1,5 @@
 ﻿using Fragments.Domain.Dto;
-using Fragments.Domain.Services;
 using Fragments.Domain.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fragments.WebApi.Controllers

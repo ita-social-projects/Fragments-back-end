@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
-using Castle.Core.Configuration;
 using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
 using Fragments.Domain.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Fragments.Domain.Services.Implementation
 {
@@ -129,17 +123,17 @@ namespace Fragments.Domain.Services.Implementation
                 return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDto>>(await users.ToListAsync());
             }
         }
-        public async Task<IReadOnlyList<AdminDto>> GetUserWithSearchAsync(FilterAndSearchDto ?filterAndSearchDTO)
+        public async Task<IReadOnlyList<AdminDto>> GetUserWithSearchAsync(FilterAndSearchDto ?filterAndSearchDto)
         {
             var users = _context.Users
-                .Where(string.IsNullOrEmpty(filterAndSearchDTO?.SearchText)
+                .Where(string.IsNullOrEmpty(filterAndSearchDto?.SearchText)
                 ? (s => s.Id != 0)
-                : (s => s.Email!.Contains(filterAndSearchDTO.SearchText) || s.FullName!.Contains(filterAndSearchDTO.SearchText)))
+                : (s => s.Email!.Contains(filterAndSearchDto.SearchText) || s.FullName!.Contains(filterAndSearchDto.SearchText)))
                 .Where(q =>
-                (filterAndSearchDTO!.RepresentativeHEI
+                (filterAndSearchDto!.RepresentativeHEI
                 ? q.RepresentativeHEI
                 : q.RepresentativeAuthority || !q.RepresentativeAuthority)
-                && (filterAndSearchDTO!.RepresentativeAuthority
+                && (filterAndSearchDto!.RepresentativeAuthority
                 ? q.RepresentativeAuthority
                 : q.RepresentativeHEI || !q.RepresentativeHEI)
                 )
@@ -158,7 +152,7 @@ namespace Fragments.Domain.Services.Implementation
             return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDto>>(await users.ToListAsync());
         }
 
-        public async Task<IEnumerable<AdminDto>> GetPageAsync(SortDto sortDTO,FilterAndSearchDto filterAndSearchDTO,int page)
+        public async Task<IEnumerable<AdminDto>> GetPageAsync(SortDto sortDto,FilterAndSearchDto filterAndSearchDTO,int page)
         {
             const int pageSize = 25;
 
@@ -185,9 +179,9 @@ namespace Fragments.Domain.Services.Implementation
                Birthday = s.Birthday
 
            });
-           if (sortDTO != null)
+           if (sortDto != null)
            {
-               switch (sortDTO.PropertyName, sortDTO.IsAscending)
+               switch (sortDto.PropertyName, sortDto.IsAscending)
                {
                     case ("FullName", true):
                         users = users.OrderBy(u => u.FullName);
