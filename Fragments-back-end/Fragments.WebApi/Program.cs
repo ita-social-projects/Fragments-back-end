@@ -4,7 +4,7 @@ using FluentValidation.AspNetCore;
 using Fragments.Domain.Extensions;
 using Fragments.Domain.Hubs;
 using Fragments.Domain.Profiles;
-using Fragments.Domain.Services;
+using Fragments.Domain.Services.Implementation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.Extensions.DependencyInjection.Extensions;
