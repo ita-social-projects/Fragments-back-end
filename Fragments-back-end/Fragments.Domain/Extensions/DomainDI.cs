@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Fragments.Domain.Services;
 
 namespace Fragments.Domain.Extensions
 {
@@ -19,6 +20,7 @@ namespace Fragments.Domain.Extensions
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IAdminService, AdminService>();
         }
         public static void AddJwtValidation(this IServiceCollection services, WebApplicationBuilder builder)
         {

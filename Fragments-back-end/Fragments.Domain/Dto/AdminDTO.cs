@@ -1,18 +1,20 @@
-﻿namespace Fragments.Data.Entities
+﻿using Fragments.Data.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Fragments.Domain.Dto
 {
-    public class User
+    public class AdminDto
     {
         public int Id { get; set; }
         public string FullName { get; set; } = null!;
         public string Email { get; set; } = null!;
         public DateTime Birthday { get; set; }
-        public string Photo { get; set; } = null!;
         public bool RepresentativeHEI { get; set; }
         public bool RepresentativeAuthority { get; set; }
-        public string? Benefits { get; set; }
-        public string? Interests { get; set; }
-        public virtual ICollection<ChannelsOfRefference>? ChannelsOfRefferences { get; set; }
-        public virtual ICollection<Notifications>? Notifications { get; set; }
         public virtual ICollection<UsersRole> UsersRole { get; set; } = null!;
     }
 }

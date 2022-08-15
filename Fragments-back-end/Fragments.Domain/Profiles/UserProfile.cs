@@ -22,6 +22,10 @@ namespace Fragments.Domain.Profiles
             CreateMap<Notifications, NotificationsDto>().ReverseMap();
 
             CreateMap<Notifications, NotificationsDto>();
+
+            CreateMap<User, AdminDto>().ReverseMap();
+
+            CreateMap<User, AdminDto>();
         }
     }
 }
