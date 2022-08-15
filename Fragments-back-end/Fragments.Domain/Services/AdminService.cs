@@ -24,7 +24,7 @@ namespace Fragments.Domain.Services
             _mapper = mapper;
         }
 
-        public async Task AssignRole(RoleDTO roleDTO, int id)
+        public async Task AssignRole(RoleDto roleDTO, int id)
         {
             var existingUser = _context.Users
            .Where(p => p.Id == id)
@@ -42,7 +42,7 @@ namespace Fragments.Domain.Services
                 }
                 foreach (var role in roleDTO.UsersRole)
                 {
-                    if (role.RoleId != null)
+                    if (role.RoleId != 0)
                     {
                         var existingRole = existingUser.UsersRole
                         .Where(r => r.RoleId == role.RoleId)
@@ -71,7 +71,7 @@ namespace Fragments.Domain.Services
             }
         }
    
-        public async Task<IReadOnlyList<AdminDTO>> GetUsersAsync()
+        public async Task<IReadOnlyList<AdminDto>> GetUsersAsync()
         {
             var users = _context.Users.Select(u => new User
             {
@@ -84,10 +84,10 @@ namespace Fragments.Domain.Services
                 Id = u.Id
             }) ;
 
-            return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDTO>>(await users.ToListAsync());
+            return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDto>>(await users.ToListAsync());
         }
    
-        public async Task<IEnumerable<AdminDTO>> Sort(SortDTO sortDTO)
+        public async Task<IEnumerable<AdminDto>> Sort(SortDTO sortDTO)
         {
             var users = _context.Users.Select(u => new User
             {
@@ -105,30 +105,30 @@ namespace Fragments.Domain.Services
                 {
                     case ("FullName",true):
                         users = users.OrderBy(u => u.FullName);
-                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
+                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDto>>(await users.ToListAsync());
 
                     case ("FullName", false):
                         users = users.OrderByDescending(u => u.FullName);
-                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
+                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDto>>(await users.ToListAsync());
 
                     case ("Email", true):
                         users = users.OrderBy(u => u.Email);
-                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
+                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDto>>(await users.ToListAsync());
 
                     case ("Email", false):
                         users = users.OrderByDescending(u => u.Email);
-                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
+                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDto>>(await users.ToListAsync());
 
                     default:
-                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
+                        return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDto>>(await users.ToListAsync());
                 }
             }
             else
             {
-                return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDTO>>(await users.ToListAsync());
+                return _mapper.Map<IReadOnlyList<User>, IEnumerable<AdminDto>>(await users.ToListAsync());
             }
         }
-        public async Task<IReadOnlyList<AdminDTO>> GetUserWithSearchAsync(FilterAndSearchDTO ?filterAndSearchDTO)
+        public async Task<IReadOnlyList<AdminDto>> GetUserWithSearchAsync(FilterAndSearchDTO ?filterAndSearchDTO)
         {
             var users = _context.Users
                 .Where(string.IsNullOrEmpty(filterAndSearchDTO?.SearchText)
@@ -154,10 +154,10 @@ namespace Fragments.Domain.Services
 
             });
 
-            return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDTO>>(await users.ToListAsync());
+            return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDto>>(await users.ToListAsync());
         }
 
-        public async Task<IEnumerable<AdminDTO>> GetPageAsync(SortDTO sortDTO,FilterAndSearchDTO filterAndSearchDTO,int page)
+        public async Task<IEnumerable<AdminDto>> GetPageAsync(SortDTO sortDTO,FilterAndSearchDTO filterAndSearchDTO,int page)
         {
             const int pageSize = 25;
 
@@ -209,7 +209,7 @@ namespace Fragments.Domain.Services
                 }
            }
 
-            return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDTO>>(await users
+            return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDto>>(await users
                 .Skip((page- 1) * pageSize).Take(pageSize).ToListAsync());
 
             

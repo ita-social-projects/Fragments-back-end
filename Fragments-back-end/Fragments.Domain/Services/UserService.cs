@@ -117,7 +117,7 @@ namespace Fragments.Domain.Services
                 }
                 foreach (var channel in model.ChannelsOfRefferences)
                 {
-                    if (channel.ChannelId != null)
+                    if (channel.ChannelId != 0)
                     {
                         var existingChannel = existingUser.ChannelsOfRefferences
                         .Where(c => c.ChannelId == channel.ChannelId)

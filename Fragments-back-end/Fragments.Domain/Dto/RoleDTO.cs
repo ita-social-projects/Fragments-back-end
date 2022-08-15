@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fragments.Domain.Dto
 {
-    public class RoleDTO
+    public class RoleDto
     {
         public int RoleId { get; set; }
 

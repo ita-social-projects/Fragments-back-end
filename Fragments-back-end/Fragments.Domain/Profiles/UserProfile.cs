@@ -19,9 +19,9 @@ namespace Fragments.Domain.Profiles
 
             CreateMap<User, AuthenticateRequestDto>().ReverseMap();
 
-            CreateMap<User,AdminDTO>().ReverseMap();
+            CreateMap<User,AdminDto>().ReverseMap();
 
-            CreateMap<User,AdminDTO>();
+            CreateMap<User,AdminDto>();
         }
     }
 }

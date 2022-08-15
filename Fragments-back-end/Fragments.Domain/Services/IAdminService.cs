@@ -10,10 +10,10 @@ namespace Fragments.Domain.Services
 {
     public interface IAdminService
     {
-        Task<IReadOnlyList<AdminDTO>> GetUsersAsync();
-        Task<IEnumerable<AdminDTO>> Sort(SortDTO sortDTO);
-        Task AssignRole(RoleDTO roleDTO, int id);
-        Task<IReadOnlyList<AdminDTO>> GetUserWithSearchAsync(FilterAndSearchDTO ?filterAndSearchDTO);
-        Task<IEnumerable<AdminDTO>> GetPageAsync(SortDTO sortDTO, FilterAndSearchDTO filterAndSearchDTO, int page);
+        Task<IReadOnlyList<AdminDto>> GetUsersAsync();
+        Task<IEnumerable<AdminDto>> Sort(SortDTO sortDTO);
+        Task AssignRole(RoleDto roleDTO, int id);
+        Task<IReadOnlyList<AdminDto>> GetUserWithSearchAsync(FilterAndSearchDTO ?filterAndSearchDTO);
+        Task<IEnumerable<AdminDto>> GetPageAsync(SortDTO sortDTO, FilterAndSearchDTO filterAndSearchDTO, int page);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fragments.Domain.Dto
 {
-    public class AdminDTO
+    public class AdminDto
     {
         public int Id { get; set; }
         public string FullName { get; set; } = null!;

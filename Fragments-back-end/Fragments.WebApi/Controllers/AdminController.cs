@@ -17,7 +17,7 @@ namespace Fragments.WebApi.Controllers
         }
 
         [HttpPut("assign-role")]
-        public async Task<IActionResult> AssignRole(RoleDTO roleDTO, int id)
+        public async Task<IActionResult> AssignRole(RoleDto roleDTO, int id)
         {
             await _adminService.AssignRole(roleDTO, id);
             return Ok();
@@ -33,12 +33,12 @@ namespace Fragments.WebApi.Controllers
             return Ok(await _adminService.Sort(sortDTO));
         }
         [HttpGet("getUsersBySearch")]
-        public async Task<IReadOnlyList<AdminDTO>> getSearchAsync([FromQuery]FilterAndSearchDTO ?filterAndSearchDTO)
+        public async Task<IReadOnlyList<AdminDto>> getSearchAsync([FromQuery]FilterAndSearchDTO ?filterAndSearchDTO)
         {
             return await _adminService.GetUserWithSearchAsync(filterAndSearchDTO);
         }
         [HttpGet("get-page")]
-        public async Task<IEnumerable<AdminDTO>> getPage([FromQuery] FilterAndSearchDTO? filterAndSearchDTO,
+        public async Task<IEnumerable<AdminDto>> getPage([FromQuery] FilterAndSearchDTO? filterAndSearchDTO,
             [FromQuery] SortDTO sortDTO,
             int page)
         {
