@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using Fragments.Domain.Services.Implementation;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
@@ -29,7 +28,7 @@ builder.Services.AddDomainDataServices();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDI();
 builder.Services.AddFluentValidation(config => config
-    .RegisterValidatorsFromAssemblyContaining<Fragments.Domain.Services.UserService>());
+    .RegisterValidatorsFromAssemblyContaining<UserService>());
 
 var mapperConfig = new MapperConfiguration(mc =>
 {
