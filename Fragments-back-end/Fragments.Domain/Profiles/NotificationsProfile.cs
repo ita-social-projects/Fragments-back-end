@@ -11,7 +11,6 @@ namespace Fragments.Domain.Profiles
             CreateMap<Notifications, NotificationsDTO>().ReverseMap().ForMember(x => x.User, opt => opt.Ignore());
 
             CreateMap<Notifications, NotificationsDTO>();
-
         }
     }
 }

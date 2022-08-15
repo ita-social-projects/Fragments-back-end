@@ -1,5 +1,5 @@
 using Fragments.Domain.Dto;
-using Fragments.Domain.Services;
+using Fragments.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,14 +22,14 @@ namespace Fragments.WebApi.Controllers
             return Ok(userName);
         }
         [HttpPost("register")]
-        public async Task<IActionResult> PostUser(UserDTO user)
+        public async Task<IActionResult> PostUser(UserDto user)
         {
             await _userService.CreateAsync(user);
 
             return Ok();
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login(AuthenticateRequestDTO user)
+        public async Task<IActionResult> Login(AuthenticateRequestDto user)
         {
             var response = await _userService.LoginAsync(user);
             if (response == null)

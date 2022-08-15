@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using Fragments.Domain.Dto;
-using Fragments.Domain.Services;
+using Fragments.Domain.Services.Interfaces;
 
 namespace Fragments.Domain.Validations
 {
-    public class UserValidator : AbstractValidator<UserDTO>
+    public class UserValidator : AbstractValidator<UserDto>
     {
         public UserValidator(IUserService service)
         {

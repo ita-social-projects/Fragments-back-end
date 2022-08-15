@@ -1,8 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using Fragments.Domain.Dto;
-using Fragments.Domain.Services;
+using Fragments.Domain.Services.Interfaces;
 using Fragments.Domain.Validations;
-using Moq;
 
 namespace Fragments.Test.FluentValidationTest
 {
@@ -21,7 +20,7 @@ namespace Fragments.Test.FluentValidationTest
         public void Email_IsNotValid_GeneratesValidationError(string email)
         {
             // Arrange
-            var model = new UserDTO { Email = email };
+            var model = new UserDto { Email = email };
 
             // Act
             var result = validator.TestValidate(model);
@@ -37,7 +36,7 @@ namespace Fragments.Test.FluentValidationTest
         {
             // Arrange
             service.Setup(x => x.IsEmailAlreadyExistsAsync(email)).ReturnsAsync(true);
-            var model = new UserDTO { Email = email };
+            var model = new UserDto { Email = email };
 
             // Act
             var result = validator.TestValidate(model);
@@ -53,7 +52,7 @@ namespace Fragments.Test.FluentValidationTest
         {
             // Arrange
             service.Setup(x => x.IsEmailAlreadyExistsAsync(email)).ReturnsAsync(false);
-            var model = new UserDTO { Email = email };
+            var model = new UserDto { Email = email };
 
             // Act
             var result = validator.TestValidate(model);
@@ -68,7 +67,7 @@ namespace Fragments.Test.FluentValidationTest
         public void Email_IsValid_NotGeneratesValidationError(string email)
         {
             // Arrange
-            var model = new UserDTO { Email = email };
+            var model = new UserDto { Email = email };
 
             // Act
             var result = validator.TestValidate(model);
@@ -82,7 +81,7 @@ namespace Fragments.Test.FluentValidationTest
         public void Birthday_IsValid_NotGeneratesValidationError(string date)
         {
             // Arrange
-            var model = new UserDTO { Birthday = DateTime.Parse(date) };
+            var model = new UserDto { Birthday = DateTime.Parse(date) };
             // Act
             var result = validator.TestValidate(model);
             // Assert
@@ -93,7 +92,7 @@ namespace Fragments.Test.FluentValidationTest
         public void Birthday_IsNotValid_GeneratesValidationError(string date)
         {
             // Arrange
-            var model = new UserDTO { Birthday = DateTime.Parse(date) };
+            var model = new UserDto { Birthday = DateTime.Parse(date) };
             // Act
             var result = validator.TestValidate(model);
             // Assert

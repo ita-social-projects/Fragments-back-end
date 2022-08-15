@@ -10,6 +10,5 @@ namespace Fragments.Domain.Services.Interfaces
         Task<bool> DeleteNotificationAsync(int notificationId);
 
         Task<IReadOnlyList<NotificationsDTO>> GetNotificationsAsync();
-
     }
 }
