@@ -40,8 +40,7 @@ namespace Fragments.Domain.Services.Implementation
                     if (role.RoleId != 0)
                     {
                         var existingRole = existingUser.UsersRole
-                        .Where(r => r.RoleId == role.RoleId)
-                        .SingleOrDefault();
+                        .SingleOrDefault(r => r.RoleId == role.RoleId);
                         if (existingRole != null)
                         {
                             _context.Entry(existingRole).CurrentValues.SetValues(role);

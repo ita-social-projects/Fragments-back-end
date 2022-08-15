@@ -117,8 +117,7 @@ namespace Fragments.Domain.Services.Implementation
                     if (channel.ChannelId != 0)
                     {
                         var existingChannel = existingUser.ChannelsOfRefferences
-                        .Where(c => c.ChannelId == channel.ChannelId)
-                        .SingleOrDefault();
+                        .SingleOrDefault(c => c.ChannelId == channel.ChannelId);
                         if (existingChannel != null)
                         {
                             _context.Entry(existingChannel).CurrentValues.SetValues(channel);
