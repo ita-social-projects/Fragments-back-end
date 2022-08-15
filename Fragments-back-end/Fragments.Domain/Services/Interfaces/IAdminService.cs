@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fragments.Domain.Services
+namespace Fragments.Domain.Services.Interfaces
 {
     public interface IAdminService
     {

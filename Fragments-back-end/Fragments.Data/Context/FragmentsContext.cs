@@ -34,7 +34,9 @@ namespace Fragments.Data.Context
             modelBuilder.Entity<ChannelsOfRefference>(ChannelsMapping.Map);
 
             modelBuilder.Entity<Notifications>(NotificationsMapping.Map);
+
             modelBuilder.Entity<Role>(RoleMapping.Map);
+
             modelBuilder.Entity<UsersRole>(UsersRoleMapping.Map);
         }
 

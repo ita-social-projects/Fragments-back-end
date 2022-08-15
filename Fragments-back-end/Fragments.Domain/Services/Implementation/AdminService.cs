@@ -3,6 +3,7 @@ using Castle.Core.Configuration;
 using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
+using Fragments.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fragments.Domain.Services
+namespace Fragments.Domain.Services.Implementation
 {
     public class AdminService : IAdminService
     {
