@@ -106,11 +106,7 @@ namespace Fragments.Domain.Services.Implementation
 
                 foreach (var existingChannel in existingUser.ChannelsOfRefferences.ToList())
                 {
-                    if (!user.ChannelsOfRefferences.Any(c => c.ChannelId == existingChannel.ChannelId))
-                    {
-                        _context.ChannelsOfRefferences.Remove(existingChannel);
-                    }
-
+                    RemoveChannelsOfRefference(user, existingChannel);
                 }
                 foreach (var channel in user.ChannelsOfRefferences)
                 {
@@ -118,10 +114,7 @@ namespace Fragments.Domain.Services.Implementation
                     {
                         var existingChannel = existingUser.ChannelsOfRefferences
                         .SingleOrDefault(c => c.ChannelId == channel.ChannelId);
-                        if (existingChannel != null)
-                        {
-                            _context.Entry(existingChannel).CurrentValues.SetValues(channel);
-                        }
+                        SetChannelValues(existingChannel!, channel);
                     }
                     else
                     {
@@ -140,5 +133,25 @@ namespace Fragments.Domain.Services.Implementation
             }
 
         }
+        private void SetChannelValues(ChannelsOfRefference existingChannel, ChannelsOfRefferenceDto channel)
+        {
+            if (existingChannel != null)
+            {
+                _context.Entry(existingChannel).CurrentValues.SetValues(channel);
+            }
+        }
+        private void RemoveChannelsOfRefference(UserDto user, ChannelsOfRefference existingChannel)
+        {
+            if (user != null
+               && user.ChannelsOfRefferences != null
+               && user.ChannelsOfRefferences != null)
+            {
+                if (!user.ChannelsOfRefferences.Any(c => c.ChannelId == existingChannel.ChannelId))
+                {
+                    _context.ChannelsOfRefferences.Remove(existingChannel);
+                }
+            }
+        }
+       
     }
 }

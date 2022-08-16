@@ -41,10 +41,7 @@ namespace Fragments.Domain.Services.Implementation
                     {
                         var existingRole = existingUser.UsersRole
                         .SingleOrDefault(r => r.RoleId == role.RoleId);
-                        if (existingRole != null)
-                        {
-                            _context.Entry(existingRole).CurrentValues.SetValues(role);
-                        }
+                        SetRoleValues(existingRole!, role);
                     }
                     else
                     {
@@ -209,7 +206,13 @@ namespace Fragments.Domain.Services.Implementation
             
         }
 
-
+        private void SetRoleValues(UsersRole existingRole, UsersRole role)
+        {
+            if (existingRole != null)
+            {
+                _context.Entry(existingRole).CurrentValues.SetValues(role);
+            }
+        }
 
     }
 }
