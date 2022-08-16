@@ -4,6 +4,7 @@ using Fragments.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fragments.Data.Migrations
 {
     [DbContext(typeof(FragmentsContext))]
-    partial class FragmentsContextModelSnapshot : ModelSnapshot
+    [Migration("20220728195230_addRolesTable")]
+    partial class addRolesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +65,7 @@ namespace Fragments.Data.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 8, 15, 21, 21, 56, 336, DateTimeKind.Local).AddTicks(4906));
+                        .HasDefaultValue(new DateTime(2022, 7, 28, 22, 52, 30, 295, DateTimeKind.Local).AddTicks(327));
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
@@ -94,7 +96,12 @@ namespace Fragments.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("RoleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Roles");
                 });
@@ -143,21 +150,6 @@ namespace Fragments.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Fragments.Data.Entities.UsersRole", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UsersRoles");
-                });
-
             modelBuilder.Entity("Fragments.Data.Entities.ChannelsOfRefference", b =>
                 {
                     b.HasOne("Fragments.Data.Entities.User", "User")
@@ -180,28 +172,15 @@ namespace Fragments.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Fragments.Data.Entities.UsersRole", b =>
+            modelBuilder.Entity("Fragments.Data.Entities.Role", b =>
                 {
-                    b.HasOne("Fragments.Data.Entities.Role", "Role")
-                        .WithMany("UsersRole")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Fragments.Data.Entities.User", "User")
-                        .WithMany("UsersRole")
+                        .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
-
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Fragments.Data.Entities.Role", b =>
-                {
-                    b.Navigation("UsersRole");
                 });
 
             modelBuilder.Entity("Fragments.Data.Entities.User", b =>
@@ -210,7 +189,7 @@ namespace Fragments.Data.Migrations
 
                     b.Navigation("Notifications");
 
-                    b.Navigation("UsersRole");
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

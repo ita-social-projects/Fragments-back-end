@@ -4,6 +4,7 @@ using Fragments.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fragments.Data.Migrations
 {
     [DbContext(typeof(FragmentsContext))]
-    partial class FragmentsContextModelSnapshot : ModelSnapshot
+    [Migration("20220731170901_AddedRoles")]
+    partial class AddedRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +65,7 @@ namespace Fragments.Data.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 8, 15, 21, 21, 56, 336, DateTimeKind.Local).AddTicks(4906));
+                        .HasDefaultValue(new DateTime(2022, 7, 31, 17, 9, 1, 411, DateTimeKind.Utc).AddTicks(8884));
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");

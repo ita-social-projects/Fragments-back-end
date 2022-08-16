@@ -50,12 +50,10 @@ IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
 app.UseCors(options => options.WithOrigins("http://localhost:3000")
                               .AllowAnyMethod()
-                              .AllowAnyHeader()
-                              .AllowAnyOrigin());
+                              .AllowAnyHeader());
 
 if (app.Environment.IsDevelopment())
 {
