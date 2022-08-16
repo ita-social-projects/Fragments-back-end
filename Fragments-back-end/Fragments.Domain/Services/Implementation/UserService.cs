@@ -144,12 +144,10 @@ namespace Fragments.Domain.Services.Implementation
         {
             if (user != null
                && user.ChannelsOfRefferences != null
-               && user.ChannelsOfRefferences != null)
+               && user.ChannelsOfRefferences != null
+               && !user.ChannelsOfRefferences.Any(c => c.ChannelId == existingChannel.ChannelId))
             {
-                if (!user.ChannelsOfRefferences.Any(c => c.ChannelId == existingChannel.ChannelId))
-                {
                     _context.ChannelsOfRefferences.Remove(existingChannel);
-                }
             }
         }
        
