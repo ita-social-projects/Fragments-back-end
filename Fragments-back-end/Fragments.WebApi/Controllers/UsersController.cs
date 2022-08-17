@@ -31,10 +31,7 @@ namespace Fragments.WebApi.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(AuthenticateRequestDto user)
         {
-            var response = await _userService.LoginAsync(user);
-            if (response == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
-            return Ok(response);
+            return Ok(await _userService.LoginAsync(user));
         }
 
         [HttpGet("{id}")]
