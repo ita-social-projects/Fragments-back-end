@@ -1,6 +1,7 @@
 ﻿using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
+using Fragments.Domain.Extensions;
 using Fragments.Domain.Services.Implementation;
 using Fragments.Domain.Services.Interfaces;
 using Fragments.Test.Base;
@@ -16,16 +17,34 @@ namespace Fragments.Test.Services
         private readonly Mock<IConfiguration> configuration;
         private readonly Mock<IHttpContextAccessor> httpContextAccessor;
         private readonly IUserService service;
+        private readonly Mock<IExtensionsWrapper> wrapper;
         public UserServiceTest()
         {
             configuration = new Mock<IConfiguration>();
             httpContextAccessor = new Mock<IHttpContextAccessor>();
+            wrapper = new Mock<IExtensionsWrapper>();
             context = ContextGenerator.GetContext();
             service = new UserService(context, Mapper, httpContextAccessor.Object, configuration.Object);
         }
-
         [Theory]
         [AutoEntityData]
+        public async Task LoginAsync_WhenUserIsValid_ReturnsCorrectValue(AuthenticateRequestDto user)
+        {
+            //Arrange
+            var dbUser = new User { FullName ="s", Photo ="s", Email = user.Email };
+            await context.AddAsync(dbUser);
+            await context.SaveChangesAsync();
+            string token = "token";
+            configuration.Setup(x => x["Secret"]).Returns("secretkeyclient0");
+            wrapper.Setup(x => x.GetJwtToken(dbUser)).Returns(token);
+            var response = new AuthenticateResponseDto(dbUser, token);
+            // Act
+            var result = await service.LoginAsync(user);
+            result.Token = token;
+            // Assert
+            result.Should().BeEquivalentTo(response);
+
+        }
         public async Task CreateAsync_WhenUserIsValid_AddsToDb(UserDto user)
         {
             //Arrange
@@ -37,7 +56,6 @@ namespace Fragments.Test.Services
             // Assert
             result.Should().NotBeNull();
         }
-
         [Fact]
         public async Task GetMeAsync_WhenUserIsNotAuthorized_ReturnsNull()
         {
@@ -51,7 +69,7 @@ namespace Fragments.Test.Services
             // Assert
             result.Should().BeNull();
         }
-    
+            
         [Theory]
         [AutoEntityData]
         public async Task GetByIdAsync_WhenUserExists_ReturnsValidResponse(UserDto user)
