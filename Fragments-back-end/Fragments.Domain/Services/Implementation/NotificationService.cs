@@ -14,6 +14,7 @@ namespace Fragments.Domain.Services.Implementation
         private readonly IFragmentsContext _context;
         private readonly IMapper _mapper;
         private readonly IHubContext<NotificationsHub> _hub;
+
         private readonly IUserService _userService;
         public NotificationService(IFragmentsContext context, IMapper mapper, IHubContext<NotificationsHub> hub, IUserService userService)
         {
@@ -67,7 +68,7 @@ namespace Fragments.Domain.Services.Implementation
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyList<NotificationsDto>> GetNotificationsAsync(bool sortingByDateDescending, bool typeOfRead)
+        public async Task<IReadOnlyList<NotificationsDto>> GetNotificationsAsync(bool sortingBy, bool typeOfRead)
         {
             var user = await _userService.GetMeAsync(); 
             var notifications = _context.Notifications
@@ -82,7 +83,7 @@ namespace Fragments.Domain.Services.Implementation
                     Theme = y.Theme,
                     Body = y.Body
                 });
-            notifications = sortingByDateDescending
+            notifications = sortingBy
                 ?  notifications.OrderByDescending(u => u.Date) 
                 :  notifications.OrderBy(u => u.Date);
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using Fragments.Domain.Services.Interfaces;
-
+using Fragments.Domain.Extensions;
 
 namespace Fragments.Domain.Services.Implementation
 {
@@ -16,9 +16,8 @@ namespace Fragments.Domain.Services.Implementation
     {
         private readonly IFragmentsContext _context;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        private readonly IExtensionsWrapper _wrapper;
         public UserService(
             IFragmentsContext context,
             IMapper mapper,
@@ -29,7 +28,7 @@ namespace Fragments.Domain.Services.Implementation
             _context = context;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
-            _configuration = configiguration;
+            _wrapper = new ExtensionsWrapper(configiguration);
         }
 
         public async Task<bool> IsEmailAlreadyExistsAsync(string email)
@@ -53,7 +52,7 @@ namespace Fragments.Domain.Services.Implementation
         {
             var user = await _context.Users.FirstAsync(user => user.Email == model.Email);
 
-            var token = _configuration.GenerateJwtToken(user);
+            var token = _wrapper.GetJwtToken(user);
             
             return new AuthenticateResponseDto(user, token);
         }

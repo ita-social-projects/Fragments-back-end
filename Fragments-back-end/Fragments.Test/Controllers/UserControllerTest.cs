@@ -54,20 +54,6 @@ namespace Fragments.Test.Controllers
         }
         [Theory]
         [AutoEntityData]
-        public async Task Login_WhenUserExists_BadRequestObjectResult(AuthenticateRequestDto user)
-        {
-            // Arrange
-            AuthenticateResponseDto? response = null!;
-            userService.Setup(service => service.LoginAsync(user)).ReturnsAsync(response);
-
-            // Act
-            var result = await userController.Login(user);
-
-            // Assert
-            result.Should().BeOfType<BadRequestObjectResult>();
-        }
-        [Theory]
-        [AutoEntityData]
         public async Task PostUser_WhenUserExists_ReturnsOkObjectResult(UserDto user)
         {
             // Arrange       
