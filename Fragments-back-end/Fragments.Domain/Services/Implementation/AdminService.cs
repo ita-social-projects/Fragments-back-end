@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Castle.Core.Configuration;
 using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
 using Fragments.Domain.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -12,13 +14,13 @@ namespace Fragments.Domain.Services.Implementation
     {
         private readonly IFragmentsContext _context;
         private readonly IMapper _mapper;
-       
+        
+
         public AdminService(IFragmentsContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-
         public async Task AssignRole(RoleDto roleDto, int id)
         {
             var existingUser = _context.Users
@@ -197,7 +199,7 @@ namespace Fragments.Domain.Services.Implementation
 
                     default:
                         break;
-                }
+               }
            }
 
             return _mapper.Map<IReadOnlyList<User>, IReadOnlyList<AdminDto>>(await users

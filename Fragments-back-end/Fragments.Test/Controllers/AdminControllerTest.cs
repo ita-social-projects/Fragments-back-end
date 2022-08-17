@@ -30,6 +30,20 @@ namespace Fragments.Test.Controllers
             // Assert
             result.Should().BeOfType<OkResult>(); 
         }
+        [Theory]
+        [AutoEntityData]
+        public async Task getPage_WhenAdminExists_ReturnsOkResult(FilterAndSearchDto filterAndSearchDto,
+            SortDto sortDto,
+            int page)
+        {
+            // Arrange
+
+            // Act
+            var result = await adminController.getPage(filterAndSearchDto,sortDto,page);
+
+            // Assert
+            result.Should().BeOfType<List<AdminDto>>();
+        }
         [Fact]
         public async Task GetAll_WhenAdminExists_ReturnsOkObjectResult( )
         {
@@ -41,7 +55,18 @@ namespace Fragments.Test.Controllers
             // Assert
             result.Should().BeOfType<OkObjectResult>();
         }
+        [Theory]
+        [AutoEntityData]
+        public async Task getUsersBySearch_WhenAdminExists_ReturnsOkObjectResult(FilterAndSearchDto filterAndSearchDto)
+        {
+            // Arrange
 
+            // Act
+            var result = await adminController.getSearchAsync(filterAndSearchDto);
+
+            // Assert
+            result.Should().BeNull();
+        }
         [Theory]
         [AutoEntityData]
         public async Task Sort_WhenAdminExists_ReturnsOkObjectResult(SortDto sortDto)
@@ -54,7 +79,5 @@ namespace Fragments.Test.Controllers
             // Assert
             result.Should().BeOfType<OkObjectResult>();
         }
-        
-
     }
 }
