@@ -83,5 +83,28 @@ namespace Fragments.Test.Controllers
                 ((result as OkObjectResult)?.Value as UserDto)?.Id.Should().Be(user.Id);
             }
         }
+        [Fact]
+        public void Logout_WhenUserExists_ReturnsOkObjectResult()
+        {
+            //Arrange
+
+            //Act
+            var result = userController.Logout();
+
+            //Assert
+            result.Should().BeOfType<ActionResult<string>>();
+        }
+        [Theory]
+        [AutoEntityData]
+        public async void Update_WhenUserExists_ReturnsOkObjectResult(UserDto user)
+        {
+            // Arrange
+
+            //Act
+            var result = await userController.Update(user);
+
+            //Assert
+            result.Should().BeOfType<ActionResult<UserDto>>();
+        }
     }
 }
