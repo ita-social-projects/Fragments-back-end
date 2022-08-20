@@ -51,9 +51,9 @@ namespace Fragments.Domain.Services.Implementation
         public async Task<AuthenticateResponseDto> LoginAsync(AuthenticateRequestDto model)
         {
             var user = await _context.Users.FirstAsync(user => user.Email == model.Email);
-
             var token = _wrapper.GetJwtToken(user);
-            
+            _context.Entry(user).State = EntityState.Modified;
+            user.LastActivityDate = DateTime.UtcNow;
             return new AuthenticateResponseDto(user, token);
         }
 
