@@ -1,4 +1,5 @@
-﻿using Fragments.Domain.Dto;
+﻿using Fragments.Data.Entities;
+using Fragments.Domain.Dto;
 
 namespace Fragments.Domain.Services.Interfaces
 {
@@ -9,5 +10,6 @@ namespace Fragments.Domain.Services.Interfaces
         Task AssignRole(RoleDto roleDto, int id);
         Task<IReadOnlyList<AdminDto>> GetUserWithSearchAsync(FilterAndSearchDto ?filterAndSearchDto);
         Task<IEnumerable<AdminDto>> GetPageAsync(SortDto sortDto, FilterAndSearchDto filterAndSearchDTO, int page);
+        bool SetRoleValues(UsersRole existingRole, UsersRole role);
     }
 }

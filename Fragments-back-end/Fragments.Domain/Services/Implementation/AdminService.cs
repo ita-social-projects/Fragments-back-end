@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Castle.Core.Configuration;
 using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
 using Fragments.Domain.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -208,12 +206,13 @@ namespace Fragments.Domain.Services.Implementation
             
         }
 
-        private void SetRoleValues(UsersRole existingRole, UsersRole role)
+        public bool SetRoleValues(UsersRole existingRole, UsersRole role)
         {
             if (existingRole != null)
             {
                 _context.Entry(existingRole).CurrentValues.SetValues(role);
             }
+            return true;
         }
 
     }

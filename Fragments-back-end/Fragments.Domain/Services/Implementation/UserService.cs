@@ -132,14 +132,15 @@ namespace Fragments.Domain.Services.Implementation
             }
 
         }
-        private void SetChannelValues(ChannelsOfRefference existingChannel, ChannelsOfRefferenceDto channel)
+        public bool SetChannelValues(ChannelsOfRefference existingChannel, ChannelsOfRefferenceDto channel)
         {
             if (existingChannel != null)
             {
                 _context.Entry(existingChannel).CurrentValues.SetValues(channel);
             }
+            return true;
         }
-        private void RemoveChannelsOfRefference(UserDto user, ChannelsOfRefference existingChannel)
+        public bool RemoveChannelsOfRefference(UserDto user, ChannelsOfRefference existingChannel)
         {
             if (user != null
                && user.ChannelsOfRefferences != null
@@ -148,6 +149,7 @@ namespace Fragments.Domain.Services.Implementation
             {
                     _context.ChannelsOfRefferences.Remove(existingChannel);
             }
+            return true;
         }
        
     }
