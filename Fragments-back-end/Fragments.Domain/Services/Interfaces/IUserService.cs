@@ -1,4 +1,5 @@
-﻿using Fragments.Domain.Dto;
+﻿using Fragments.Data.Entities;
+using Fragments.Domain.Dto;
 
 namespace Fragments.Domain.Services.Interfaces
 {
@@ -10,5 +11,7 @@ namespace Fragments.Domain.Services.Interfaces
         Task<UserDto> GetMeAsync();
         Task<UserDto> GetByIdAsync(int id);
         Task UpdateAsync(UserDto user);
+        bool SetChannelValues(ChannelsOfRefference existingChannel, ChannelsOfRefferenceDto channel);
+        bool RemoveChannelsOfRefference(UserDto user, ChannelsOfRefference existingChannel);
     }
 }

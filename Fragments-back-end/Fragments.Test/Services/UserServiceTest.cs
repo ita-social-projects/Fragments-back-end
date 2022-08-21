@@ -1,4 +1,5 @@
-﻿using Fragments.Data.Context;
+﻿using AutoMapper;
+using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
 using Fragments.Domain.Extensions;
@@ -7,7 +8,6 @@ using Fragments.Domain.Services.Interfaces;
 using Fragments.Test.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using System.Security.Claims;
 
 namespace Fragments.Test.Services
 {
@@ -45,6 +45,8 @@ namespace Fragments.Test.Services
             result.Should().BeEquivalentTo(response);
 
         }
+        [Theory]
+        [AutoEntityData]
         public async Task CreateAsync_WhenUserIsValid_AddsToDb(UserDto user)
         {
             //Arrange
@@ -121,6 +123,85 @@ namespace Fragments.Test.Services
 
             // Assert
             result.Should().BeTrue();
+        }
+        [Fact]
+        public void SetChannelValues_WhenExistingChannelIsNotNull_ReturnsTrue()
+        {
+            //Arrange
+            ChannelsOfRefference existingchannel = new ChannelsOfRefference();
+            ChannelsOfRefferenceDto channel = new ChannelsOfRefferenceDto();
+
+            //Act
+            var result = service.SetChannelValues(existingchannel, channel);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+        [Fact]
+        public void SetChannelValues_WhenExistingChannelIsNull_ReturnsTrue()
+        {
+            //Arrange
+            ChannelsOfRefference? existingchannel = null;
+            ChannelsOfRefferenceDto channel = new ChannelsOfRefferenceDto();
+
+            //Act
+            var result = service.SetChannelValues(existingchannel!, channel);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+        [Fact]
+        public void RemoveChannelsOfRefference_WhenAllArgumentsIsNotNull_ReturnsTrue()
+        {
+            //Arrange
+            UserDto user = new UserDto();
+            ChannelsOfRefference existingChannel = new ChannelsOfRefference();
+
+            //Act
+            var result = service.RemoveChannelsOfRefference(user,existingChannel);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+        [Fact]
+        public void RemoveChannelsOfRefference_WhenUserIsNull_ReturnsTrue()
+        {
+            //Arrange
+            UserDto? user = null;
+            ChannelsOfRefference existingChannel = new ChannelsOfRefference();
+
+            //Act
+            var result = service.RemoveChannelsOfRefference(user!, existingChannel);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+        [Fact]
+        public void RemoveChannelsOfRefference_WhenChannelsOfReferencesIsNull_ReturnsTrue()
+        {
+            //Arrange
+            UserDto user = new UserDto();
+            ChannelsOfRefference? existingChannel =null;
+
+            //Act
+            var result = service.RemoveChannelsOfRefference(user, existingChannel!);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+        [Theory]
+        [AutoEntityData]
+        public async Task UpdateAsync_WhenUserExist_ChangesUser(UserDto user)
+        {
+            //Arrange
+
+            // Act
+            await service.CreateAsync(user);
+            await service.UpdateAsync(user);
+            var result = await context.Users.FindAsync(user.Id);
+
+            // Assert
+            result.Should().NotBeNull();
         }
     }
 }

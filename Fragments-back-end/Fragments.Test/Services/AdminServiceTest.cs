@@ -1,5 +1,4 @@
 ﻿using Castle.Core.Configuration;
-using FluentAssertions.Execution;
 using Fragments.Data.Context;
 using Fragments.Data.Entities;
 using Fragments.Domain.Dto;
@@ -7,7 +6,6 @@ using Fragments.Domain.Services.Implementation;
 using Fragments.Domain.Services.Interfaces;
 using Fragments.Test.Base;
 using Microsoft.AspNetCore.Http;
-using System.Reflection;
 
 namespace Fragments.Test.Services
 {
@@ -224,6 +222,32 @@ namespace Fragments.Test.Services
 
             //Assert
             result.Should().BeOfType<List<AdminDto>>();
+        }
+        [Fact]
+        public void SetRoleValues_WhenExistingRoleIsNotNull_ReturnsTrue()
+        {
+            //Arrange
+            UsersRole existingRole = new UsersRole();
+            UsersRole role = new UsersRole();
+
+            //Act
+            var result = service.SetRoleValues(role, existingRole);
+
+            //Assert
+            result.Should().BeTrue();    
+        }
+        [Theory]
+        [AutoEntityData]
+        public async Task AssignRole_WhenUserExist_AssigningRole(RoleDto roleDto, int id)
+        {
+            //Arrange
+
+            // Act
+            await service.AssignRole(roleDto, id);
+            var result = context.Users.FindAsync(id);   
+
+            // Assert
+            result.Should().NotBeNull();
         }
     }
 }
