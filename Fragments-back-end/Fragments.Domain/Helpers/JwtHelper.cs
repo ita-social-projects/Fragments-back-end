@@ -27,12 +27,12 @@ namespace Fragments.Domain.Helpers
         }
         private static string GetRoles(User user)
         {
-            string result = string.Empty;
+            StringBuilder bld = new StringBuilder();
             foreach (var role in user.UsersRole.AsEnumerable()) 
-            { 
-                result += $" {role.Role.RoleName}"; 
+            {
+                bld.Append($" {role.Role.RoleName}");
             }
-            return result.TrimStart();
+            return bld.ToString().TrimStart();
         }
     }
 }
