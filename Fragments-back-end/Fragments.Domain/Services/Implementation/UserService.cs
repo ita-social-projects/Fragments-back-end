@@ -61,7 +61,7 @@ namespace Fragments.Domain.Services.Implementation
         {
             if (_httpContextAccessor.HttpContext != null)
             {
-                var result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+                var result = _httpContextAccessor.HttpContext.User.FindFirstValue("id");
                 var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == int.Parse(result));
                 var response = _mapper.Map<UserDto>(user);
                 return response;
