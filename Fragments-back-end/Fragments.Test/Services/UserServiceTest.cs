@@ -32,7 +32,9 @@ namespace Fragments.Test.Services
         {
             //Arrange
             var dbUser = new User { FullName ="s", Photo ="s", Email = user.Email };
-            await context.AddAsync(dbUser);
+            var dbUserRole = new UsersRole { RoleId = 1, UserId = 1 };
+            var dbRole = new Role { RoleName = "User" };
+            await context.AddRangeAsync(dbUser, dbUserRole, dbRole);
             await context.SaveChangesAsync();
             string token = "token";
             configuration.Setup(x => x["Secret"]).Returns("secretkeyclient0");
