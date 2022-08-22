@@ -13,9 +13,10 @@ namespace Fragments.Domain.Helpers
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(configuration["Secret"]);
+            
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()), new Claim(ClaimTypes.Role, GetRoles(user)) }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -23,6 +24,15 @@ namespace Fragments.Domain.Helpers
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+        private static string GetRoles(User user)
+        {
+            StringBuilder bld = new StringBuilder();
+            foreach (var role in user.UsersRole.AsEnumerable()) 
+            {
+                bld.Append($" {role.Role.RoleName}");
+            }
+            return bld.ToString().TrimStart();
         }
     }
 }

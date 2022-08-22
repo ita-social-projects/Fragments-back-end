@@ -23,7 +23,7 @@ namespace Fragments.Domain.Hubs
             ConnectionId = Context.ConnectionId;
             if (Context.User != null)
             {
-                _userId = Context.User.FindFirst(ClaimTypes.Name)!.Value;
+                _userId = Context.User.FindFirst("id")!.Value;
                 await EnterGroup(_userId);
             }
             await base.OnConnectedAsync();
